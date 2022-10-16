@@ -3,12 +3,12 @@
 ```plantuml
 @startuml
 
-Database --> DatabaseCommunictionInterface
+Database --> DatabaseCommunictionFacadeInterface
 
 database Database {
 }
 
-interface DatabaseCommunictionInterface {
+interface DatabaseCommunictionFacadeInterface {
     + generateUserToken(String email, String passwordHash) : User
     + getUserByToken(String token) : User
     + getUserById(String id) : User
@@ -31,12 +31,12 @@ interface DatabaseCommunictionInterface {
     + replySuggestion(Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
 }
 
-note left of DatabaseCommunictionInterface::createUser
+note left of DatabaseCommunictionFacadeInterface::createUser
     Returns Spring Repository
     item type.
 endnote
 
-note left of DatabaseCommunictionInterface::getProductsFilterProducts
+note left of DatabaseCommunictionFacadeInterface::getProductsFilterProducts
     Working on like or between statement
     for non null passed fields.
 endnote
