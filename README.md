@@ -37,6 +37,21 @@ ViewAndLogic                 -->  FrontendBackendCommunication
 @enduml 
 ```
 
+## Deployment diagram
+```plantuml
+@startuml
+left to right direction
+
+node Database as database
+node Server as server
+node Browser as browser
+
+database -- server
+server -- browser
+
+@enduml 
+```
+
 ## Usages diagrams
 
 ### Not logged in user
