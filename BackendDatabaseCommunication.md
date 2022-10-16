@@ -2,8 +2,7 @@
 
 ```plantuml
 @startuml
-
-Database --> DatabaseCommunictionFacadeInterface
+DatabaseCommunictionFacadeInterface <.. Database
 
 database Database {
 }
