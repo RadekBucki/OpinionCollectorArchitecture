@@ -55,8 +55,8 @@ rectangle Application {
     (User account) --> (Register) : include
     (User account) --> (Log in) : include
     
-    (Products search) --> (Display products list) : include
-    (Products search) --> (Filtering products list) : include
+    (Products search) --> (Display visible products list) : include
+    (Products search) --> (Filtering visible products list) : include
     
     (Product browse) --> (Display product details) : include
     (Product browse) --> (Display product opinions) : include
@@ -78,8 +78,8 @@ rectangle Application {
     customer -- (User account)
     customer -- (Product browse)
     
-    (Products search) --> (Display products list) : include
-    (Products search) --> (Filtering products list) : include
+    (Products search) --> (Display visible products list) : include
+    (Products search) --> (Filtering visible products list) : include
     
     (Product browse) --> (Display product details) : include
     (Product browse) --> (Display product opinions) : include
@@ -106,8 +106,8 @@ rectangle Application {
     admin -- (Product browse)
     admin -- (Admin Panel)
     
-    (Products search) --> (Display products list) : include
-    (Products search) --> (Filtering products list) : include
+    (Products search) --> (Display visible products list) : include
+    (Products search) --> (Filtering visible products list) : include
     
     (Product browse) --> (Display product details) : include
     (Product browse) --> (Display product opinions) : include
