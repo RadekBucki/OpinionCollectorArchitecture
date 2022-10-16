@@ -140,7 +140,7 @@ component Backend {
             + replySuggestion(Integer suggestiontId, String suggestionStatus, String suggestionReply)
         }
     
-        note left of SuggestionFacade
+        note left of SuggestionFacadeInterface
             Verify that user passed
             by constructor is:
              - admin to perform 
