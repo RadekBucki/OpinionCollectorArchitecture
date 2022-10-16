@@ -16,10 +16,14 @@ interface DatabaseCommunictionFacadeInterface {
     + getProductBySku(String sku) : Product
     + getAllProducts() : Product[]
     + searchProducts(String searchPhrase) : Product[]
-    + getProductsFilterProducts(String categoryName, Integer opinionAvgMin) : Product[]
-    + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String, Boolean visible) : Product
-    + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String, Boolean visible) : Product
+    + getProductsFilterProducts(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
+    + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+    + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
     + removeProduct(String sku)
+    
+    + getCategories(): Category[]
+    + createCategory(String categoryName, Boolean visible) : Category
+    + updateCategory(String categoryName, Boolean visible): Category
     
     + getProductOpinions(String sku) : Opinion[]
     + getProductOpinionAvg(String sku) : OpinionAvg[]
@@ -35,9 +39,16 @@ note left of DatabaseCommunictionFacadeInterface::createUser
     item type.
 endnote
 
+note left of DatabaseCommunictionFacadeInterface::getAllProducts
+    Only this method returns 
+    unvisible products
+    (for admin).
+endnote
+
 note left of DatabaseCommunictionFacadeInterface::getProductsFilterProducts
-    Working on like or between statement
-    for non null passed fields.
+    Working on like or between 
+    statementfor non null passed 
+    fields.
 endnote
 
 @enduml 

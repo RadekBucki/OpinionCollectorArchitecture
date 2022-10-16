@@ -61,3 +61,47 @@ component Backend {
 }
 @enduml 
 ```
+## ProductFacade
+
+```plantuml
+@startuml
+component Backend {
+    component BackendDatabaseCommunication {
+        interface DatabaseCommunictionFacadeInterface {
+            + getProductBySku(String sku) : Product
+            + getAllProducts() : Product[]
+            + searchProducts(String searchPhrase) : Product[]
+            + getProductsFilterProducts(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
+            + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + removeProduct(String sku)
+            
+            + getCategories(): Category[]
+            + createCategory(String categoryName, Boolean visible) : Category
+            + updateCategory(String categoryName, Boolean visible): Category
+        }
+    }
+    
+    component BackendLogic {
+        ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        interface ProductFacadeInterface {
+            - user: User
+            + getProducts()
+            + getProductsFiltered(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax)
+            + addProduct(String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + editProduct(String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            
+            + addCategory(String categoryName, Boolean visible)
+            + editCategory(String categoryName, Boolean visible)
+        }
+    
+        note left of ProductFacadeInterface
+            Verify that user
+            passed by constructor
+            is admin and can perform
+            add and edit operations.
+        endnote
+    }
+}
+@enduml 
+```
