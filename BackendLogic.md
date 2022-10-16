@@ -146,3 +146,37 @@ component Backend {
 }
 @enduml 
 ```
+
+## OpinionFacade
+
+```plantuml
+@startuml
+component Backend {
+    component BackendDatabaseCommunication {
+        interface DatabaseCommunictionFacadeInterface {
+            + getProductOpinions(String sku) : Opinion[]
+            + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
+            + getUserOpinions(Integer userId) : Opinion[]
+        }
+    }
+    
+    component BackendLogic {
+        OpinionFacade  ..> DatabaseCommunictionFacadeInterface
+        interface OpinionFacade {
+            - user: User
+            + getProductOpinions(Product product) : Opinion[]
+            + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
+            + getUserOpinions(User user) : Opinion[]
+        }
+    
+        note left of OpinionFacade
+            Verify that user passed
+            by constructor is:
+             - logged in not admin
+             to perform addProductOpinion
+             and getUserOpinions operation.
+        endnote
+    }
+}
+@enduml 
+```

@@ -26,8 +26,8 @@ interface DatabaseCommunictionFacadeInterface {
     + updateCategory(String categoryName, Boolean visible): Category
     
     + getProductOpinions(String sku) : Opinion[]
-    + getProductOpinionAvg(String sku) : OpinionAvg[]
     + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
+    + getUserOpinions(Integer userId) : Opinion[]
     
     + getAllSuggestions() : Suggestion[]
     + getUserSugestions(Integer userId) : Sugestion[]
