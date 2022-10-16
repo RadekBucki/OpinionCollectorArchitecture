@@ -10,12 +10,12 @@ component Backend {
     component BackendLogic {
         interface CustomerFacadeInterface
         interface ProductFacadeInterface
-        interface SugestionFacadeInterface
+        interface SuggestionFacadeInterface
         interface OpinionFacadeInterface
         
         CustomerFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         ProductFacadeInterface   ..> DatabaseCommunictionFacadeInterface
-        SugestionFacadeInterface ..> DatabaseCommunictionFacadeInterface
+        SuggestionFacadeInterface ..> DatabaseCommunictionFacadeInterface
         OpinionFacadeInterface   ..> DatabaseCommunictionFacadeInterface
     }
 }
@@ -61,6 +61,7 @@ component Backend {
 }
 @enduml 
 ```
+
 ## ProductFacade
 
 ```plantuml
@@ -86,6 +87,7 @@ component Backend {
         ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface {
             - user: User
+            + getAllProducts()
             + getProducts()
             + getProductsFiltered(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax)
             + addProduct(String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
@@ -100,6 +102,45 @@ component Backend {
             passed by constructor
             is admin and can perform
             add and edit operations.
+        endnote
+    }
+}
+@enduml 
+```
+
+## SuggestionFacade
+
+```plantuml
+@startuml
+component Backend {
+    component BackendDatabaseCommunication {
+        interface DatabaseCommunictionFacadeInterface {
+            + getAllSuggestions() : Suggestion[]
+            + getUserSugestions(Integer userId) : Sugestion[]
+            + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
+            + replySuggestion(Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+        }
+    }
+    
+    component BackendLogic {
+        SuggestionFacade  ..> DatabaseCommunictionFacadeInterface
+        interface SuggestionFacade {
+            - user: User
+            + getUserSugestions() : Sugestion[]
+            + addSuggestion(Product product, String suggestionDescription) : Suggestion
+            + getAllSuggestions() : Suggestion[]
+            + replySuggestion(String suggestionStatus, String suggestionReply)
+        }
+    
+        note left of SuggestionFacade
+            Verify that user passed
+            by constructor is:
+             - admin to perform 
+            getAllSuggestions and
+            replySuggestion operations
+             - logged in not admin
+             to perform getUserSugestions
+             and addSuggestion.
         endnote
     }
 }

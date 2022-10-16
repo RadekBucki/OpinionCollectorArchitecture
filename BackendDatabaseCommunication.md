@@ -27,10 +27,11 @@ interface DatabaseCommunictionFacadeInterface {
     
     + getProductOpinions(String sku) : Opinion[]
     + getProductOpinionAvg(String sku) : OpinionAvg[]
-    + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages)
+    + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
     
-    + getProductSugestions(String sku) : Sugestion[]
-    + addSuggestion(Integer productId, Integer userId, String suggestionDescription): Suggestion
+    + getAllSuggestions() : Suggestion[]
+    + getUserSugestions(Integer userId) : Sugestion[]
+    + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
     + replySuggestion(Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
 }
 
