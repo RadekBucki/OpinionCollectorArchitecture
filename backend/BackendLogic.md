@@ -13,10 +13,10 @@ component Backend {
         interface SuggestionFacadeInterface
         interface OpinionFacadeInterface
         
-        UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
-        ProductFacadeInterface   ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface       ..> DatabaseCommunictionFacadeInterface
+        ProductFacadeInterface    ..> DatabaseCommunictionFacadeInterface
         SuggestionFacadeInterface ..> DatabaseCommunictionFacadeInterface
-        OpinionFacadeInterface   ..> DatabaseCommunictionFacadeInterface
+        OpinionFacadeInterface    ..> DatabaseCommunictionFacadeInterface
     }
 }
 @enduml 
@@ -123,8 +123,8 @@ component Backend {
     }
     
     component BackendLogic {
-        SuggestionFacade  ..> DatabaseCommunictionFacadeInterface
-        interface SuggestionFacade {
+        SuggestionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        interface SuggestionFacadeInterface {
             - user: User
             + getUserSugestions() : Sugestion[]
             + addSuggestion(Product product, String suggestionDescription) : Suggestion
@@ -161,15 +161,15 @@ component Backend {
     }
     
     component BackendLogic {
-        OpinionFacade  ..> DatabaseCommunictionFacadeInterface
-        interface OpinionFacade {
+        OpinionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        interface OpinionFacadeInterface {
             - user: User
             + getProductOpinions(Product product) : Opinion[]
             + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
             + getUserOpinions(User user) : Opinion[]
         }
     
-        note left of OpinionFacade
+        note left of OpinionFacadeInterface
             Verify that user passed
             by constructor is:
              - logged in not admin
