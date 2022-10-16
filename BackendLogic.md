@@ -8,12 +8,12 @@ component Backend {
     }
     
     component BackendLogic {
-        interface CustomerFacadeInterface
+        interface UserFacadeInterface
         interface ProductFacadeInterface
         interface SuggestionFacadeInterface
         interface OpinionFacadeInterface
         
-        CustomerFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         ProductFacadeInterface   ..> DatabaseCommunictionFacadeInterface
         SuggestionFacadeInterface ..> DatabaseCommunictionFacadeInterface
         OpinionFacadeInterface   ..> DatabaseCommunictionFacadeInterface
@@ -22,7 +22,7 @@ component Backend {
 @enduml 
 ```
 
-## CustomerFacade
+## UserFacade
 
 ```plantuml
 @startuml
@@ -37,24 +37,24 @@ component Backend {
     }
     
     component BackendLogic {
-        CustomerFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         
-        interface CustomerFacadeInterface {
+        interface UserFacadeInterface {
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + registerAdmin(User userCreatedNewAdmin, String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
             + getUserByToken(String token): User
         }
     
-        note left of CustomerFacadeInterface::register
+        note left of UserFacadeInterface::register
             Validate password length and complexity.
         endnote
     
-        note left of CustomerFacadeInterface::registerAdmin
+        note left of UserFacadeInterface::registerAdmin
             Verify that admin user creates next admin.
         endnote
     
-        note left of CustomerFacadeInterface::login
+        note left of UserFacadeInterface::login
             Returns user token.
         endnote
     }
