@@ -8,6 +8,7 @@ database Database {
 }
 
 interface DatabaseCommunictionFacadeInterface {
+    + getAllUsers() : User[]
     + generateUserToken(String email, String passwordHash) : User
     + getUserByToken(String token) : User
     + getUserById(String id) : User

@@ -40,11 +40,17 @@ component Backend {
         UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         
         interface UserFacadeInterface {
+            - user : User
+            + getAllUsers() : User[]
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + registerAdmin(User userCreatedNewAdmin, String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
             + getUserByToken(String token): User
         }
+    
+        note top of UserFacadeInterface
+            Only for admin user ca perform getAllUsers and registerAdmin operations
+        endnote
     
         note left of UserFacadeInterface::register
             Validate password length and complexity.
