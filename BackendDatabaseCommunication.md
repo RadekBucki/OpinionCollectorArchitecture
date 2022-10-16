@@ -1,4 +1,4 @@
-# Backend architecture
+# Backend - Database Communication
 
 ```plantuml
 @startuml
