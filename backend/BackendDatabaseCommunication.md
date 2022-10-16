@@ -13,6 +13,7 @@ interface DatabaseCommunictionFacadeInterface {
     + getUserByToken(String token) : User
     + getUserById(String id) : User
     + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+    + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
     
     + getProductBySku(String sku) : Product
     + getAllProducts() : Product[]
@@ -33,7 +34,7 @@ interface DatabaseCommunictionFacadeInterface {
     + getAllSuggestions() : Suggestion[]
     + getUserSugestions(Integer userId) : Sugestion[]
     + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
-    + replySuggestion(Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+    + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
 }
 
 note left of DatabaseCommunictionFacadeInterface::createUser

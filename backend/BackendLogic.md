@@ -33,6 +33,7 @@ component Backend {
             + getUserByToken(String token) : User
             + getUserById(String id) : User
             + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
     }
     
@@ -46,10 +47,11 @@ component Backend {
             + registerAdmin(User userCreatedNewAdmin, String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
             + getUserByToken(String token): User
+            + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
     
         note top of UserFacadeInterface
-            Only for admin user ca perform getAllUsers and registerAdmin operations
+            Only for admin user ca perform getAllUsers, registerAdmin and updateUser operations
         endnote
     
         note left of UserFacadeInterface::register
@@ -124,7 +126,7 @@ component Backend {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(Integer userId) : Sugestion[]
             + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
-            + replySuggestion(Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+            + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
         }
     }
     
@@ -135,7 +137,7 @@ component Backend {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(Product product, String suggestionDescription) : Suggestion
             + getAllSuggestions() : Suggestion[]
-            + replySuggestion(String suggestionStatus, String suggestionReply)
+            + replySuggestion(Integer suggestiontId, String suggestionStatus, String suggestionReply)
         }
     
         note left of SuggestionFacade
