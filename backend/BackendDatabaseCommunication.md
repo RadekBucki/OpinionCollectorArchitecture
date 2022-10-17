@@ -14,7 +14,7 @@ interface DatabaseCommunictionFacadeInterface {
     + getUserById(String id) : User
     + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
     + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-    + addIserToken(Integer userId, String token)
+    + addUserToken(Integer userId, String token)
     
     + getProductBySku(String sku) : Product
     + getAllProducts() : Product[]

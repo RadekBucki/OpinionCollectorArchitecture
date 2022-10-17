@@ -34,7 +34,6 @@ component Backend {
             + getUserById(String id) : User
             + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-            + addUserToken(Integer userId, String token)
         }
     }
     
