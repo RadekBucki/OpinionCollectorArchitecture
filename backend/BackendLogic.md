@@ -29,11 +29,12 @@ component Backend {
 component Backend {
     component BackendDatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface {
-            + generateUserToken(String email, String passwordHash) : User
+            + generateUserToken(String email, String passwordHash) : String
             + getUserByToken(String token) : User
             + getUserById(String id) : User
             + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + addUserToken(Integer userId, String token)
         }
     }
     
@@ -48,6 +49,7 @@ component Backend {
             + login(String email, String password): String
             + getUserByToken(String token): User
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + addUserToken(Integer userId, String token)
         }
     
         note top of UserFacadeInterface
@@ -88,6 +90,7 @@ component Backend {
             + getCategories(): Category[]
             + createCategory(String categoryName, Boolean visible) : Category
             + updateCategory(String categoryName, Boolean visible): Category
+            + removeCategory(String categoryName)
         }
     }
     
@@ -100,9 +103,11 @@ component Backend {
             + getProductsFiltered(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax)
             + addProduct(String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
             + editProduct(String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + removeProduct(String sku)
             
             + addCategory(String categoryName, Boolean visible)
             + editCategory(String categoryName, Boolean visible)
+            + removeCategory(String categoryName)
         }
     
         note left of ProductFacadeInterface

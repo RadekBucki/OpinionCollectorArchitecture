@@ -9,11 +9,12 @@ database Database {
 
 interface DatabaseCommunictionFacadeInterface {
     + getAllUsers() : User[]
-    + generateUserToken(String email, String passwordHash) : User
+    + generateUserToken(String email, String passwordHash) : String
     + getUserByToken(String token) : User
     + getUserById(String id) : User
     + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
     + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+    + addIserToken(Integer userId, String token)
     
     + getProductBySku(String sku) : Product
     + getAllProducts() : Product[]
@@ -26,6 +27,7 @@ interface DatabaseCommunictionFacadeInterface {
     + getCategories(): Category[]
     + createCategory(String categoryName, Boolean visible) : Category
     + updateCategory(String categoryName, Boolean visible): Category
+    + removeCategory(String categoryName)
     
     + getProductOpinions(String sku) : Opinion[]
     + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
