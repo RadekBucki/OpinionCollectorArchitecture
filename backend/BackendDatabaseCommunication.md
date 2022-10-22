@@ -38,6 +38,22 @@ component Backend {
             + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
             + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
         }
+        note left of DatabaseCommunictionFacadeInterface::createUser
+            Returns Spring Repository
+            item type.
+        endnote
+        
+        note left of DatabaseCommunictionFacadeInterface::getAllProducts
+            Only this method returns 
+            unvisible products
+            (for admin).
+        endnote
+        
+        note left of DatabaseCommunictionFacadeInterface::getProductsFilterProducts
+            Working on like or between 
+            statementfor non null passed 
+            fields.
+        endnote
     }
     note left of BackendDatabaseCommunication {
         Projectants: 
@@ -46,23 +62,6 @@ component Backend {
 }
 
 DatabaseCommunictionFacadeInterface <.. Database
-
-note left of DatabaseCommunictionFacadeInterface::createUser
-    Returns Spring Repository
-    item type.
-endnote
-
-note left of DatabaseCommunictionFacadeInterface::getAllProducts
-    Only this method returns 
-    unvisible products
-    (for admin).
-endnote
-
-note left of DatabaseCommunictionFacadeInterface::getProductsFilterProducts
-    Working on like or between 
-    statementfor non null passed 
-    fields.
-endnote
 
 @enduml 
 ```
