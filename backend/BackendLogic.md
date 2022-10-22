@@ -36,7 +36,6 @@ component Backend {
             + addUserToken(Integer userId, String token) : String
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
-    }
     
     component BackendLogic {
         note as Authors
@@ -48,12 +47,11 @@ component Backend {
         UserFacadeInterface ..> DatabaseCommunictionFacadeInterface
         
         interface UserFacadeInterface <<interface>> {
-            - user : User
             + getAllUsers() : User[]
             + getUserByToken(String token) : User
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + register(String firstName, String lastName, String email, String profilePictureUrl): User
-            + registerAdmin(User userCreatedNewAdmin, String firstName, String lastName, String email, String password, String profilePictureUrl): User
+            + registerAdmin(String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
             + login(String email): String
             + getUserByToken(String token): User
@@ -61,6 +59,7 @@ component Backend {
         }
     
         note top of UserFacadeInterface
+            Currently logged in user passed by consutructor. Null if current sessionis for guest.
             Only for admin user can, perform getAllUsers, registerAdmin and updateUser operations
         endnote
     
@@ -110,7 +109,6 @@ component Backend {
         
         ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface <<interface>> {
-            - user: User
             + getProductBySku(String sku) : Product
             + getAllProducts() : Product[]
             + getProducts() : Product[]
@@ -124,11 +122,10 @@ component Backend {
             + removeCategory(String categoryName)
         }
     
-        note left of ProductFacadeInterface
-            Verify that user
-            passed by constructor
-            is admin and can perform
-            add, edit and remove operations.
+        note top of ProductFacadeInterface
+            Currently logged in user passed by consutructor. Null if current sessionis for guest.
+            Verify that user passed by constructor is admin and can perform add, edit
+            and remove operations.
         endnote
     }
 }
@@ -158,22 +155,17 @@ component Backend {
         
         SuggestionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface SuggestionFacadeInterface <<interface>> {
-            - user: User
             + getUserSugestions() : Sugestion[]
             + addSuggestion(Product product, String suggestionDescription) : Suggestion
             + getAllSuggestions() : Suggestion[]
             + replySuggestion(Integer suggestiontId, String suggestionStatus, String suggestionReply)
         }
     
-        note left of SuggestionFacadeInterface
-            Verify that user passed
-            by constructor is:
-             - admin to perform 
-            getAllSuggestions and
-            replySuggestion operations
-             - logged in not admin
-             to perform getUserSugestions
-             and addSuggestion.
+        note top of SuggestionFacadeInterface
+            Currently logged in user passed by consutructor. Null if current sessionis for guest.
+            Verify that user passed by constructor is:
+             - admin to perform  getAllSuggestions and replySuggestion operations
+             - logged in not adminto perform getUserSugestions and addSuggestion.
         endnote
     }
 }
@@ -202,18 +194,15 @@ component Backend {
         
         OpinionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface OpinionFacadeInterface <<interface>> {
-            - user: User
             + getProductOpinions(Product product) : Opinion[]
             + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
             + getUserOpinions(User user) : Opinion[]
         }
     
-        note left of OpinionFacadeInterface
-            Verify that user passed
-            by constructor is:
-             - logged in not admin
-             to perform addProductOpinion
-             and getUserOpinions operation.
+        note top of OpinionFacadeInterface
+            Currently logged in user passed by consutructor. Null if current sessionis for guest.
+            Verify that user passed by constructor is:
+             - logged in not adminto perform addProductOpinion and getUserOpinions operation.
         endnote
     }
 }
