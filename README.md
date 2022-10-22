@@ -139,13 +139,15 @@ rectangle Application {
     (Products) --> (Display products list) : include
     (Products) --> (Add product) : include
     (Products) --> (Edit product) : include
+    (Products) --> (Remove product) : include
     
     (Categories) --> (Display category list) : include
     (Categories) --> (Add category) : include
     (Categories) --> (Edit category) : include
+    (Categories) --> (Remove category) : include
     
     (Suggestions) --> (Display suggestions list) : include
-    (Suggestions) --> (React for suggestion) : include
+    (Suggestions) --> (React to suggestion) : include
 }
 
 @enduml
