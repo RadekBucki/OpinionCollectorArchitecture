@@ -47,7 +47,7 @@ component Backend {
         endnote
         
         note left of DatabaseCommunictionFacadeInterface::addUserToken
-            Allows to create/update(if expired)
+            Allows to create/update (if expired)
             user session token.
         endnote
         

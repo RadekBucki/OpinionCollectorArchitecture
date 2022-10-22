@@ -52,10 +52,10 @@ component Backend {
             + getAllUsers() : User[]
             + getUserByToken(String token) : User
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
-            + registerExternal(String firstName, String lastName, String email, String profilePictureUrl): User
-            + registerAdmin(User userCreatedNewAdmin): User
+            + register(String firstName, String lastName, String email, String profilePictureUrl): User
+            + registerAdmin(User userCreatedNewAdmin, String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
-            + loginExternal(String email): String
+            + login(String email): String
             + getUserByToken(String token): User
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
@@ -73,11 +73,7 @@ component Backend {
         endnote
     
         note left of UserFacadeInterface::login
-            Returns user token.
-        endnote
-        
-        note left of UserFacadeInterface::loginExternal
-            Returns user external token.
+            Returns user token or external token.
         endnote
     }
 }
