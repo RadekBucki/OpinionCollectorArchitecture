@@ -2,42 +2,50 @@
 
 ```plantuml
 @startuml
-DatabaseCommunictionFacadeInterface <.. Database
 
 database Database {
 }
-
-interface DatabaseCommunictionFacadeInterface {
-    + getAllUsers() : User[]
-    + generateUserToken(String email, String passwordHash) : String
-    + getUserByToken(String token) : User
-    + getUserById(String id) : User
-    + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-    + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-    + addUserToken(Integer userId, String token)
-    
-    + getProductBySku(String sku) : Product
-    + getAllProducts() : Product[]
-    + searchProducts(String searchPhrase) : Product[]
-    + getProductsFilterProducts(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
-    + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-    + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-    + removeProduct(String sku)
-    
-    + getCategories(): Category[]
-    + createCategory(String categoryName, Boolean visible) : Category
-    + updateCategory(String categoryName, Boolean visible): Category
-    + removeCategory(String categoryName)
-    
-    + getProductOpinions(String sku) : Opinion[]
-    + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
-    + getUserOpinions(Integer userId) : Opinion[]
-    
-    + getAllSuggestions() : Suggestion[]
-    + getUserSugestions(Integer userId) : Sugestion[]
-    + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
-    + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+component Backend {
+    component BackendDatabaseCommunication {
+        interface DatabaseCommunictionFacadeInterface {
+            + getAllUsers() : User[]
+            + generateUserToken(String email, String passwordHash) : String
+            + getUserByToken(String token) : User
+            + getUserById(String id) : User
+            + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + addUserToken(Integer userId, String token)
+            
+            + getProductBySku(String sku) : Product
+            + getAllProducts() : Product[]
+            + searchProducts(String searchPhrase) : Product[]
+            + getProductsFilterProducts(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
+            + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
+            + removeProduct(String sku)
+            
+            + getCategories(): Category[]
+            + createCategory(String categoryName, Boolean visible) : Category
+            + updateCategory(String categoryName, Boolean visible): Category
+            + removeCategory(String categoryName)
+            
+            + getProductOpinions(String sku) : Opinion[]
+            + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
+            + getUserOpinions(Integer userId) : Opinion[]
+            
+            + getAllSuggestions() : Suggestion[]
+            + getUserSugestions(Integer userId) : Sugestion[]
+            + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
+            + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+        }
+    }
+    note left of BackendDatabaseCommunication {
+        Projectants: 
+        Jakub Mielczarek, Jakub Czyżewski
+    }
 }
+
+DatabaseCommunictionFacadeInterface <.. Database
 
 note left of DatabaseCommunictionFacadeInterface::createUser
     Returns Spring Repository
