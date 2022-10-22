@@ -4,14 +4,14 @@
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface
+        interface DatabaseCommunictionFacadeInterface <<interface>>
     }
     
     component BackendLogic {
-        interface UserFacadeInterface
-        interface ProductFacadeInterface
-        interface SuggestionFacadeInterface
-        interface OpinionFacadeInterface
+        interface UserFacadeInterface <<interface>>
+        interface ProductFacadeInterface <<interface>>
+        interface SuggestionFacadeInterface <<interface>>
+        interface OpinionFacadeInterface <<interface>>
         
         UserFacadeInterface       ..> DatabaseCommunictionFacadeInterface
         ProductFacadeInterface    ..> DatabaseCommunictionFacadeInterface
@@ -28,7 +28,7 @@ component Backend {
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface {
+        interface DatabaseCommunictionFacadeInterface <<interface>>{
             + generateUserToken(String email, String passwordHash) : String
             + getUserByToken(String token) : User
             + getUserById(String id) : User
@@ -44,9 +44,9 @@ component Backend {
              - Mateusz Krasiński
         endnote
         
-        UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface ..> DatabaseCommunictionFacadeInterface
         
-        interface UserFacadeInterface {
+        interface UserFacadeInterface <<interface>> {
             - user : User
             + getAllUsers() : User[]
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
@@ -83,7 +83,7 @@ component Backend {
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface {
+        interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductBySku(String sku) : Product
             + getAllProducts() : Product[]
             + searchProducts(String searchPhrase) : Product[]
@@ -107,7 +107,7 @@ component Backend {
         endnote
         
         ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
-        interface ProductFacadeInterface {
+        interface ProductFacadeInterface <<interface>> {
             - user: User
             + getAllProducts()
             + getProducts()
@@ -138,7 +138,7 @@ component Backend {
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface {
+        interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(Integer userId) : Sugestion[]
             + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
@@ -154,7 +154,7 @@ component Backend {
         endnote
         
         SuggestionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
-        interface SuggestionFacadeInterface {
+        interface SuggestionFacadeInterface <<interface>> {
             - user: User
             + getUserSugestions() : Sugestion[]
             + addSuggestion(Product product, String suggestionDescription) : Suggestion
@@ -183,7 +183,7 @@ component Backend {
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface {
+        interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductOpinions(String sku) : Opinion[]
             + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
             + getUserOpinions(Integer userId) : Opinion[]
@@ -198,7 +198,7 @@ component Backend {
         endnote
         
         OpinionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
-        interface OpinionFacadeInterface {
+        interface OpinionFacadeInterface <<interface>> {
             - user: User
             + getProductOpinions(Product product) : Opinion[]
             + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion

@@ -12,7 +12,7 @@ component Backend {
              - Jakub Mielczarek
              - Jakub Czyżewski
         endnote
-        interface DatabaseCommunictionFacadeInterface {
+        interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + generateUserToken(String email, String passwordHash) : String
             + getUserByToken(String token) : User
