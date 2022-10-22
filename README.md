@@ -98,8 +98,8 @@ rectangle Application {
     
     (Product browse) --> (Display product details) : include
     (Product browse) --> (Display product opinions) : include
-    (Product browse) <-- (Add opinion) : extends
-    (Product browse) <-- (Add suggestions) : extends
+    (Product browse) --> (Add opinion) : include
+    (Product browse) --> (Add suggestions) : include
     
     (User account) --> (Display user suggestions) : include
     (User account) --> (Display user opinions) : include
