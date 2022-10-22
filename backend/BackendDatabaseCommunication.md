@@ -14,22 +14,20 @@ component Backend {
         endnote
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
-            + generateUserToken(String email, String passwordHash) : String
             + getUserByToken(String token) : User
-            + getUserById(String id) : User
             + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + getUserToken(String email, String passwordHash) : String
+            + addUserToken(Integer userId, String token) : String
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-            + addUserToken(Integer userId, String token)
-            
+        
             + getProductBySku(String sku) : Product
             + getAllProducts() : Product[]
-            + searchProducts(String searchPhrase) : Product[]
-            + getProductsFilterProducts(String categoryName, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
+            + getVisibleProducts() : Product[]
+            + getProductsFilterProducts(String categoryName, String searchPhrase, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
             + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
             + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
             + removeProduct(String sku)
-            
-            + getCategories(): Category[]
+
             + createCategory(String categoryName, Boolean visible) : Category
             + updateCategory(String categoryName, Boolean visible): Category
             + removeCategory(String categoryName)
@@ -48,6 +46,11 @@ component Backend {
             item type.
         endnote
         
+        note left of DatabaseCommunictionFacadeInterface::addUserToken
+            Allows to create/update (if expired)
+            user session token.
+        endnote
+        
         note left of DatabaseCommunictionFacadeInterface::getAllProducts
             Only this method returns 
             unvisible products
@@ -62,7 +65,7 @@ component Backend {
     }
 }
 
-DatabaseCommunictionFacadeInterface <.. Database
+DatabaseCommunictionFacadeInterface ..> Database
 
 @enduml 
 ```
