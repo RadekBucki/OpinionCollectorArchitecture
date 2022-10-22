@@ -7,6 +7,11 @@ database Database {
 }
 component Backend {
     component BackendDatabaseCommunication {
+        note as Authors
+            Projectants: 
+             - Jakub Mielczarek
+             - Jakub Czyżewski
+        endnote
         interface DatabaseCommunictionFacadeInterface {
             + getAllUsers() : User[]
             + generateUserToken(String email, String passwordHash) : String
@@ -54,10 +59,6 @@ component Backend {
             statementfor non null passed 
             fields.
         endnote
-    }
-    note left of BackendDatabaseCommunication {
-        Projectants: 
-        Jakub Mielczarek, Jakub Czyżewski
     }
 }
 

@@ -38,6 +38,12 @@ component Backend {
     }
     
     component BackendLogic {
+        note as Authors
+            Projectants: 
+             - Michał Andrzejczak
+             - Mateusz Krasiński
+        endnote
+        
         UserFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         
         interface UserFacadeInterface {
@@ -94,6 +100,12 @@ component Backend {
     }
     
     component BackendLogic {
+        note as Authors
+            Projectants: 
+             - Filip Grzelak
+             - Damian Biskupski
+        endnote
+        
         ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface {
             - user: User
@@ -135,6 +147,12 @@ component Backend {
     }
     
     component BackendLogic {
+        note as Authors
+            Projectants: 
+             - Paweł Wieczorek
+             - Julian Woroniecki
+        endnote
+        
         SuggestionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface SuggestionFacadeInterface {
             - user: User
@@ -173,6 +191,12 @@ component Backend {
     }
     
     component BackendLogic {
+        note as Authors
+            Projectants: 
+             - Paweł Wieczorek
+             - Julian Woroniecki
+        endnote
+        
         OpinionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
         interface OpinionFacadeInterface {
             - user: User
