@@ -36,7 +36,7 @@ component Frontend {
                     URL: /admin/list/<list_item_name>
                 endnote
             }
-            component Edit {
+            component SuggestionReplier {
                 note as EditDescription
                     Reusable component for display edit form for:
                     - Users
