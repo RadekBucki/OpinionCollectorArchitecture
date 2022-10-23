@@ -15,7 +15,7 @@ component Backend {
             Description: Create HTTP endpoints with Spring Boot.
             
              - Michał Andrzejczak, Mateusz Krasiński
-                - POST /users - get all users data
+                - GET /users - get all users data
                 - POST /users/register - register new user or admin user
                 - GET /users/login - get user data and token
                 - PUT /users/update - update user data
