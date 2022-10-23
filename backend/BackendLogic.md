@@ -50,10 +50,8 @@ component Backend {
             + getAllUsers() : User[]
             + getUserByToken(String token) : User
             + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
-            + register(String firstName, String lastName, String email, String profilePictureUrl): User
             + registerAdmin(String firstName, String lastName, String email, String password, String profilePictureUrl): User
             + login(String email, String password): String
-            + login(String email): String
             + getUserByToken(String token): User
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
