@@ -28,10 +28,10 @@ component Backend {
 database Database {
 }
 
-BackendDatabaseCommunication --.> Database: SQL
+BackendDatabaseCommunication ...> Database: SQL
 BackendLogic                 -->  BackendDatabaseCommunication
 BackendFrontendCommunication -->  BackendLogic
-FrontendBackendCommunication --.> BackendFrontendCommunication: JSON
+FrontendBackendCommunication ...> BackendFrontendCommunication: JSON
 ViewAndLogic                 -->  FrontendBackendCommunication
 
 @enduml 
