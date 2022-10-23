@@ -30,11 +30,11 @@ component Backend {
     component BackendDatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
-            + getUserByToken(String token) : User
-            + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
-            + getUserToken(String email, String passwordHash) : String
-            + addUserToken(Integer userId, String token) : String
-            + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + getUserByToken(token: String) : User
+            + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+            + getUserToken(email: String, passwordHash: String) : String
+            + addUserToken(userId: Integer, token: String) : String
+            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     }
     component BackendLogic {
@@ -48,12 +48,12 @@ component Backend {
         
         interface UserFacadeInterface <<interface>> {
             + getAllUsers() : User[]
-            + getUserByToken(String token) : User
-            + register(String firstName, String lastName, String email, String password, String profilePictureUrl): User
-            + registerAdmin(String firstName, String lastName, String email, String password, String profilePictureUrl): User
-            + login(String email, String password): String
-            + getUserByToken(String token): User
-            + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
+            + getUserByToken(token: String) : User
+            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + login(email: String, password: String): String
+            + getUserByToken(token: String): User
+            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     
         note top of UserFacadeInterface
@@ -84,17 +84,17 @@ component Backend {
 component Backend {
     component BackendDatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
-            + getProductBySku(String sku) : Product
+            + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
             + getVisibleProducts() : Product[]
-            + getProductsFilterProducts(String categoryName, String searchPhrase, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
-            + createProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-            + updateProduct(Integer authorId, String sku, String ean, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-            + removeProduct(String sku)
+            + getProductsFilterProducts(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+            + createProduct(authorId: Integer, sku: String, ean: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + updateProduct(authorId: Integer, sku: String, ean: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + removeProduct(sku: String)
 
-            + createCategory(String categoryName, Boolean visible) : Category
-            + updateCategory(String categoryName, Boolean visible): Category
-            + removeCategory(String categoryName)
+            + createCategory(categoryName: String, visible: Boolean) : Category
+            + updateCategory(categoryName: String, visible: Boolean): Category
+            + removeCategory(categoryName: String)
         }
     }
     
@@ -107,17 +107,17 @@ component Backend {
         
         ProductFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface <<interface>> {
-            + getProductBySku(String sku) : Product
+            + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
             + getProducts() : Product[]
-            + getProductsFiltered(String categoryName, String searchPhrase, Integer opinionAvgMin, Integer opinionAvgMax) : Product[]
-            + addProduct(String sku, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-            + editProduct(String sku, String name, String pictureUrl, String description, String[] categoryNames, Boolean visible) : Product
-            + removeProduct(String sku)
+            + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + removeProduct(sku: String)
             
-            + addCategory(String categoryName, Boolean visible) : Category
-            + editCategory(String categoryName, Boolean visible) : Category
-            + removeCategory(String categoryName)
+            + addCategory(categoryName: String, visible: Boolean) : Category
+            + editCategory(categoryName: String, visible: Boolean) : Category
+            + removeCategory(categoryName: String)
         }
     
         note top of ProductFacadeInterface
@@ -138,9 +138,9 @@ component Backend {
     component BackendDatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllSuggestions() : Suggestion[]
-            + getUserSugestions(Integer userId) : Sugestion[]
-            + addSuggestion(Integer productId, Integer userId, String suggestionDescription) : Suggestion
-            + replySuggestion(Integer suggestiontId, Integer suggestionReviewerId, String suggestionStatus, String suggestionReply)
+            + getUserSugestions(userId: Integer) : Sugestion[]
+            + addSuggestion(productId: Integer, userId: Integer, suggestionDescription: String) : Suggestion
+            + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
         }
     }
     
@@ -154,9 +154,9 @@ component Backend {
         SuggestionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface SuggestionFacadeInterface <<interface>> {
             + getUserSugestions() : Sugestion[]
-            + addSuggestion(Product product, String suggestionDescription) : Suggestion
+            + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
             + getAllSuggestions() : Suggestion[]
-            + replySuggestion(Integer suggestiontId, String suggestionStatus, String suggestionReply)
+            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
         }
     
         note top of SuggestionFacadeInterface
@@ -177,9 +177,9 @@ component Backend {
 component Backend {
     component BackendDatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
-            + getProductOpinions(String sku) : Opinion[]
-            + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
-            + getUserOpinions(Integer userId) : Opinion[]
+            + getProductOpinions(sku: String) : Opinion[]
+            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + getUserOpinions(userId: Integer) : Opinion[]
         }
     }
     
@@ -192,9 +192,9 @@ component Backend {
         
         OpinionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface OpinionFacadeInterface <<interface>> {
-            + getProductOpinions(Product product) : Opinion[]
-            + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion
-            + getUserOpinions(User user) : Opinion[]
+            + getProductOpinions(product: Product) : Opinion[]
+            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + getUserOpinions(user: User) : Opinion[]
         }
     
         note top of OpinionFacadeInterface
