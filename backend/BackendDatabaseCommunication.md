@@ -65,7 +65,7 @@ component Backend {
     }
 }
 
-DatabaseCommunictionFacadeInterface ..> Database
+DatabaseCommunictionFacadeInterface ...> Database
 
 @enduml 
 ```

@@ -13,10 +13,10 @@ component Backend {
         interface SuggestionFacadeInterface <<interface>>
         interface OpinionFacadeInterface <<interface>>
         
-        UserFacadeInterface       ..> DatabaseCommunictionFacadeInterface
-        ProductFacadeInterface    ..> DatabaseCommunictionFacadeInterface
-        SuggestionFacadeInterface ..> DatabaseCommunictionFacadeInterface
-        OpinionFacadeInterface    ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface       --> DatabaseCommunictionFacadeInterface
+        ProductFacadeInterface    --> DatabaseCommunictionFacadeInterface
+        SuggestionFacadeInterface --> DatabaseCommunictionFacadeInterface
+        OpinionFacadeInterface    --> DatabaseCommunictionFacadeInterface
     }
 }
 @enduml 
@@ -28,7 +28,7 @@ component Backend {
 @startuml
 component Backend {
     component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>>{
+        interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(String token) : User
             + createUser(String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
@@ -36,7 +36,7 @@ component Backend {
             + addUserToken(Integer userId, String token) : String
             + updateUser(Integer userId, String firstName, String lastName, String email, String passwordHash, String profilePictureUrl, Boolean isAdmin) : User
         }
-    
+    }
     component BackendLogic {
         note as Authors
             Projectants: 
@@ -44,7 +44,7 @@ component Backend {
              - Mateusz Krasiński
         endnote
         
-        UserFacadeInterface ..> DatabaseCommunictionFacadeInterface
+        UserFacadeInterface --> DatabaseCommunictionFacadeInterface
         
         interface UserFacadeInterface <<interface>> {
             + getAllUsers() : User[]
@@ -105,7 +105,7 @@ component Backend {
              - Damian Biskupski
         endnote
         
-        ProductFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        ProductFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface <<interface>> {
             + getProductBySku(String sku) : Product
             + getAllProducts() : Product[]
@@ -151,7 +151,7 @@ component Backend {
              - Julian Woroniecki
         endnote
         
-        SuggestionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        SuggestionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface SuggestionFacadeInterface <<interface>> {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(Product product, String suggestionDescription) : Suggestion
@@ -190,7 +190,7 @@ component Backend {
              - Julian Woroniecki
         endnote
         
-        OpinionFacadeInterface  ..> DatabaseCommunictionFacadeInterface
+        OpinionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface OpinionFacadeInterface <<interface>> {
             + getProductOpinions(Product product) : Opinion[]
             + addProductOpinion(Integer opinionValue, String opinionDescription, String opinionPicture, String[] advatages, String[] disadvantages) : Opinion

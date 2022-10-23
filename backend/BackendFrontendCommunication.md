@@ -45,7 +45,7 @@ component Backend {
     }
 }
 
-FrontendBackendCommunication --> BackendFrontendCommunication: JSON
+FrontendBackendCommunication ..> BackendFrontendCommunication: JSON
 
 @enduml 
 ```
