@@ -21,7 +21,7 @@ component Frontend {
             List of queries:
             - GET /users - get all users data
             - POST /users/register - register new user or admin user
-            - GET /users/login - get user data and token
+            - POST /users/login - get user data and token
             - PUT /users/update - update user data
             - GET /products - get products
             - GET /products/all - get all products
@@ -30,6 +30,9 @@ component Frontend {
             - POST /products/add - add product
             - PUT /products/edit - edit product
             - DELETE /products/delete - remove product
+            - POST /categories/add - add category
+            - PUT /categories/edit - edit category
+            - DELETE /categories/delete - remove category
             - GET /suggestions/user - get user suggestions
             - POST /suggestions/add - add suggestion
             - GET /suggestions/get - get all suggestions
