@@ -129,8 +129,8 @@ component Backend {
             + getAllProducts() : Product[]
             + getVisibleProducts() : Product[]
             + getProductsFilterProducts(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
-            + createProduct(authorId: Integer, sku: String, ean: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + updateProduct(authorId: Integer, sku: String, ean: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + createProduct(authorId: Integer, sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + updateProduct(authorId: Integer, sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
             + removeProduct(sku: String)
 
             + createCategory(categoryName: String, visible: Boolean) : Category
