@@ -17,7 +17,7 @@ component Frontend {
             - Registration modal
             - PLP (Products List Page)
             - PDP (Products Detail Page)
-            - ClientPanel
+            - ClientPanel (list of suggestions and opinions of the user)
             Uses BackendCommunication component to get data.
         endnote
     }
