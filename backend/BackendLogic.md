@@ -3,31 +3,59 @@
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>>
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
     }
     
-    component BackendLogic {
-        interface UserFacadeInterface <<interface>>
-        interface ProductFacadeInterface <<interface>>
-        interface SuggestionFacadeInterface <<interface>>
-        interface OpinionFacadeInterface <<interface>>
+    component DatabaseCommunication {
+    }
+}
+
+component Database {
+}
+
+DatabaseCommunication ...> Database: SQL
+
+UserLogic             -->  DatabaseCommunication
+ProductLogic          -->  DatabaseCommunication
+OpinionLogic          -->  DatabaseCommunication
+SuggestionLogic       -->  DatabaseCommunication
+@enduml 
+```
+
+## UserFacade
+```plantuml
+@startuml
+component Backend {
+    component UserLogic {
+        note as Authors
+            Projectants: 
+             - Michał Andrzejczak
+             - Mateusz Krasiński
+        endnote
+        note as Description
+            Creates endpoints for:
+            - GET /users - get all users data
+            - POST /users/register - register new user or admin user
+            - GET /users/login - get user data and token
+            - PUT /users/update - update user data
+            Uses DatabaseCommunication component to data operations.
+        endnote
         
-        UserFacadeInterface       --> DatabaseCommunictionFacadeInterface
-        ProductFacadeInterface    --> DatabaseCommunictionFacadeInterface
-        SuggestionFacadeInterface --> DatabaseCommunictionFacadeInterface
-        OpinionFacadeInterface    --> DatabaseCommunictionFacadeInterface
     }
 }
 @enduml 
 ```
 
-## UserFacade
-
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
@@ -37,7 +65,7 @@ component Backend {
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     }
-    component BackendLogic {
+    component UserLogic {
         note as Authors
             Projectants: 
              - Michał Andrzejczak
@@ -78,11 +106,38 @@ component Backend {
 ```
 
 ## ProductFacade
+```plantuml
+@startuml
+component Backend {    
+    component ProductLogic {
+        note as Authors
+            Projectants: 
+             - Filip Grzelak
+             - Damian Biskupski
+        endnote
+        note as Description
+            Creates endpoints for:
+            - GET /products - get products
+            - GET /products/all - get all products
+            - GET /products/search - search products
+            - GET /products/details - get products details
+            - POST /products/add - add product
+            - PUT /products/edit - edit product
+            - DELETE /products/delete - remove product
+            - POST /categories/add - add category
+            - PUT /categories/edit - edit category
+            - DELETE /categories/delete - remove category
+            Uses DatabaseCommunication component to data operations.
+        endnote
+    }
+}
+@enduml 
+```
 
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
@@ -98,13 +153,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
-        note as Authors
-            Projectants: 
-             - Filip Grzelak
-             - Damian Biskupski
-        endnote
-        
+    component ProductLogic {        
         ProductFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface ProductFacadeInterface <<interface>> {
             + getProductBySku(sku: String) : Product
@@ -135,7 +184,28 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component SuggestionLogic {
+        note as Authors
+            Projectants: 
+             - Paweł Wieczorek
+             - Julian Woroniecki
+        endnote
+        note as Description
+            Creates endpoints for:
+            - GET /suggestions/user - get user suggestions
+            - POST /suggestions/add - add suggestion
+            - GET /suggestions/get - get all suggestions
+            - PUT /suggestions/reply - reply to suggestion
+            Uses DatabaseCommunication component to data operations.
+        endnote
+}
+@enduml 
+```
+
+```plantuml
+@startuml
+component Backend {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(userId: Integer) : Sugestion[]
@@ -144,12 +214,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
-        note as Authors
-            Projectants: 
-             - Paweł Wieczorek
-             - Julian Woroniecki
-        endnote
+    component SuggestionLogic {
         
         SuggestionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface SuggestionFacadeInterface <<interface>> {
@@ -175,7 +240,32 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component OpinionLogic {
+        note as Authors
+            Projectants: 
+             - Paweł Wieczorek
+             - Julian Woroniecki
+        endnote
+        note as Description
+            Creates endpoints for:
+            - GET /suggestions/user - get user suggestions
+            - POST /suggestions/add - add suggestion
+            - GET /suggestions/get - get all suggestions
+            - PUT /suggestions/reply - reply to suggestion
+            - GET /opinions/user - get user opinions
+            - GET /opinions/product - get product opinions
+            - POST /opinions/add - add opinion
+            Uses DatabaseCommunication component to data operations.
+        endnote
+    }
+}
+@enduml 
+```
+
+```plantuml
+@startuml
+component Backend {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
@@ -183,13 +273,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
-        note as Authors
-            Projectants: 
-             - Paweł Wieczorek
-             - Julian Woroniecki
-        endnote
-        
+    component OpinionLogic {        
         OpinionFacadeInterface  --> DatabaseCommunictionFacadeInterface
         interface OpinionFacadeInterface <<interface>> {
             + getProductOpinions(product: Product) : Opinion[]

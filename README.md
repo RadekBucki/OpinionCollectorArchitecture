@@ -7,32 +7,47 @@ Designed with [PlantUML](https://plantuml.com/)
 ```plantuml
 @startuml
 component Frontend {
-    component ViewAndLogic {
+    component UserPanel {
     }
     
-    component FrontendBackendCommunication {
+    component AdminPanel {
+    }
+    
+    component BackendCommunication {
     }
 }
 
 component Backend {
-    component BackendFrontendCommunication {
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
     }
     
-    component BackendLogic {
-    }
-    
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
     }
 }
 
-database Database {
+component Database {
 }
 
-BackendDatabaseCommunication ...> Database: SQL
-BackendLogic                 -->  BackendDatabaseCommunication
-BackendFrontendCommunication -->  BackendLogic
-FrontendBackendCommunication ...> BackendFrontendCommunication: JSON
-ViewAndLogic                 -->  FrontendBackendCommunication
+DatabaseCommunication ...> Database: SQL
+
+UserLogic             -->  DatabaseCommunication
+ProductLogic          -->  DatabaseCommunication
+OpinionLogic          -->  DatabaseCommunication
+SuggestionLogic       -->  DatabaseCommunication
+
+BackendCommunication  ...> UserLogic: JSON
+BackendCommunication  ...> ProductLogic: JSON
+BackendCommunication  ...> OpinionLogic: JSON
+BackendCommunication  ...> SuggestionLogic: JSON
+
+UserPanel             -->  BackendCommunication
+AdminPanel            -->  BackendCommunication
 
 @enduml 
 ```
@@ -63,18 +78,18 @@ left to right direction
 actor "Not logged in user" AS customer
 
 rectangle Application {
-    customer -- (User account)
-    customer -- (Products search)
-    customer -- (Product browse)
+    customer -- (Manage user)
+    customer -- (Search products)
+    customer -- (Browse product)
     
-    (User account) --> (Register) : include
-    (User account) --> (Log in) : include
+    (Manage user) <.. (Register): <<extend>>
+    (Manage user) <.. (Log in): <<extend>>
     
-    (Products search) --> (Display visible products list) : include
-    (Products search) --> (Filtering visible products list) : include
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) --> (Display product details) : include
-    (Product browse) --> (Display product opinions) : include
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
 }
 
 @enduml
@@ -89,20 +104,20 @@ left to right direction
 actor "Logged in user" AS customer
 
 rectangle Application {
-    customer -- (Products search)
-    customer -- (User account)
-    customer -- (Product browse)
+    customer -- (Search products)
+    customer -- (Manage user)
+    customer -- (Browse product)
     
-    (Products search) --> (Display visible products list) : include
-    (Products search) --> (Filtering visible products list) : include
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) --> (Display product details) : include
-    (Product browse) --> (Display product opinions) : include
-    (Product browse) --> (Add opinion) : include
-    (Product browse) --> (Add suggestions) : include
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
+    (Browse product) <.. (Add opinion): <<extend>>
+    (Browse product) <.. (Add suggestions): <<extend>>
     
-    (User account) --> (Display user suggestions) : include
-    (User account) --> (Display user opinions) : include
+    (Manage user) <.. (Display user suggestions): <<extend>>
+    (Manage user) <.. (Display user opinions): <<extend>>
 }
 
 @enduml
@@ -117,37 +132,35 @@ left to right direction
 actor Admin AS admin
 
 rectangle Application {
-    admin -- (Products search)
-    admin -- (Product browse)
-    admin -- (Admin Panel)
+    admin -- (Search products)
+    admin -- (Browse product)
+    admin --  (Administer users)
+    admin --  (Administer products)
+    admin --  (Administer categories)
+    admin --  (Administer suggestions)
     
-    (Products search) --> (Display visible products list) : include
-    (Products search) --> (Filtering visible products list) : include
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) --> (Display product details) : include
-    (Product browse) --> (Display product opinions) : include
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
     
-    (Admin Panel) --> (Users) : include
-    (Admin Panel) --> (Products) : include
-    (Admin Panel) --> (Categories) : include
-    (Admin Panel) --> (Suggestions) : include
+    (Administer users) <.. (Display users list): <<extend>>
+    (Administer users) <.. (Edit user): <<extend>>
+    (Administer users) <.. (Add user): <<extend>>
     
-    (Users) --> (Display users list) : include
-    (Users) --> (Edit user) : include
-    (Users) --> (Add user) : include
+    (Administer products) <.. (Display products list): <<extend>>
+    (Administer products) <.. (Add product): <<extend>>
+    (Administer products) <.. (Edit product): <<extend>>
+    (Administer products) <.. (Remove product): <<extend>>
     
-    (Products) --> (Display products list) : include
-    (Products) --> (Add product) : include
-    (Products) --> (Edit product) : include
-    (Products) --> (Remove product) : include
+    (Administer categories) <.. (Display category list): <<extend>>
+    (Administer categories) <.. (Add category): <<extend>>
+    (Administer categories) <.. (Edit category): <<extend>>
+    (Administer categories) <.. (Remove category): <<extend>>
     
-    (Categories) --> (Display category list) : include
-    (Categories) --> (Add category) : include
-    (Categories) --> (Edit category) : include
-    (Categories) --> (Remove category) : include
-    
-    (Suggestions) --> (Display suggestions list) : include
-    (Suggestions) --> (React to suggestion) : include
+    (Administer suggestions) <.. (Display suggestions list): <<extend>>
+    (Administer suggestions) <.. (React to suggestion): <<extend>>
 }
 
 @enduml
