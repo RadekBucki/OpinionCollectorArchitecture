@@ -1,4 +1,28 @@
 # Backend - Database Communication
+```plantuml
+@startuml
+component Backend {
+    component DatabaseCommunication {
+        note as Authors
+            Projectants: 
+             - Jakub Mielczarek
+             - Jakub Czyżewski
+        endnote
+        note as Description
+            Logic responsible for
+            communication with database.
+            It allows to:
+            - get data
+            - update data
+            - insert data
+            - delete data
+            Takes data and remove objects.
+        endnote
+    }
+}
+
+@enduml 
+```
 
 ```plantuml
 @startuml
@@ -7,11 +31,6 @@ component Database {
 }
 component Backend {
     component DatabaseCommunication {
-        note as Authors
-            Projectants: 
-             - Jakub Mielczarek
-             - Jakub Czyżewski
-        endnote
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
@@ -65,7 +84,7 @@ component Backend {
     }
 }
 
-DatabaseCommunictionFacadeInterface ...> Database
+DatabaseCommunictionFacadeInterface ...> Database : SQL
 
 @enduml 
 ```
