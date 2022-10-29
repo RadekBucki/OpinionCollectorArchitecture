@@ -3,13 +3,7 @@
 ```plantuml
 @startuml
     
-component Frontend {
-    component UserPanel {
-    }
-    
-    component AdminPanel {
-    }
-    
+component Frontend {    
     component BackendCommunication {
         note as Authors
             Projectants: 
@@ -19,7 +13,7 @@ component Frontend {
         note as Description
             Description: 
             Create HTTP queries, send it to backend application,
-            process answer. Done by Axios.
+            process answer.
             
             List of queries:
             - GET /users - get all users data
@@ -45,15 +39,67 @@ component Frontend {
             - POST /opinions/add - add opinion
         endnote
     }
-    AdminPanel            --> BackendCommunication
-    UserPanel             --> BackendCommunication
 }
+@enduml 
+```
 
-component Backend {
-    component FrontendCommunication {
+```plantuml
+@startuml
+left to right direction
+component Frontend {
+    
+    component BackendCommunication {
     }
 }
 
-BackendCommunication --.> FrontendCommunication: JSON
+component Backend {
+    component UserLogic {
+        interface UserFacadeInterface <<interface>> {
+            + getAllUsers() : User[]
+            + getUserByToken(token: String) : User
+            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + login(email: String, password: String): String
+            + getUserByToken(token: String): User
+            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+        }
+    }
+    component ProductLogic {
+        interface ProductFacadeInterface <<interface>> {
+            + getProductBySku(sku: String) : Product
+            + getAllProducts() : Product[]
+            + getProducts() : Product[]
+            + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + removeProduct(sku: String)
+            
+            + addCategory(categoryName: String, visible: Boolean) : Category
+            + editCategory(categoryName: String, visible: Boolean) : Category
+            + removeCategory(categoryName: String)
+        }
+    }
+    component OpinionLogic {
+        interface OpinionFacadeInterface <<interface>> {
+            + getProductOpinions(product: Product) : Opinion[]
+            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + getUserOpinions(user: User) : Opinion[]
+        }
+    }
+    component SuggestionLogic {
+        interface SuggestionFacadeInterface <<interface>> {
+            + getUserSugestions() : Sugestion[]
+            + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
+            + getAllSuggestions() : Suggestion[]
+            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+        }
+    }
+}
+
+BackendCommunication  ...> UserFacadeInterface: JSON
+BackendCommunication  ...> ProductFacadeInterface: JSON
+BackendCommunication  ...> OpinionFacadeInterface: JSON
+BackendCommunication  ...> SuggestionFacadeInterface: JSON
+
 @enduml 
 ```
