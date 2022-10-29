@@ -79,17 +79,17 @@ actor "Not logged in user" AS customer
 
 rectangle Application {
     customer -- (Manage user)
-    customer -- (Products search)
-    customer -- (Product browse)
+    customer -- (Search products)
+    customer -- (Browse product)
     
     (Manage user) <.. (Register): <<extend>>
     (Manage user) <.. (Log in): <<extend>>
     
-    (Products search) <.. (Display visible products list): <<extend>>
-    (Products search) <.. (Filtering visible products list): <<extend>>
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) <.. (Display product details): <<extend>>
-    (Product browse) <.. (Display product opinions): <<extend>>
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
 }
 
 @enduml
@@ -104,17 +104,17 @@ left to right direction
 actor "Logged in user" AS customer
 
 rectangle Application {
-    customer -- (Products search)
+    customer -- (Search products)
     customer -- (Manage user)
-    customer -- (Product browse)
+    customer -- (Browse product)
     
-    (Products search) <.. (Display visible products list): <<extend>>
-    (Products search) <.. (Filtering visible products list): <<extend>>
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) <.. (Display product details): <<extend>>
-    (Product browse) <.. (Display product opinions): <<extend>>
-    (Product browse) <.. (Add opinion): <<extend>>
-    (Product browse) <.. (Add suggestions): <<extend>>
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
+    (Browse product) <.. (Add opinion): <<extend>>
+    (Browse product) <.. (Add suggestions): <<extend>>
     
     (Manage user) <.. (Display user suggestions): <<extend>>
     (Manage user) <.. (Display user opinions): <<extend>>
@@ -132,15 +132,15 @@ left to right direction
 actor Admin AS admin
 
 rectangle Application {
-    admin -- (Products search)
-    admin -- (Product browse)
+    admin -- (Search products)
+    admin -- (Browse product)
     admin -- (Administer website)
     
-    (Products search) <.. (Display visible products list): <<extend>>
-    (Products search) <.. (Filtering visible products list): <<extend>>
+    (Search products) <.. (Display visible products list): <<extend>>
+    (Search products) <.. (Filter visible products list): <<extend>>
     
-    (Product browse) <.. (Display product details): <<extend>>
-    (Product browse) <.. (Display product opinions): <<extend>>
+    (Browse product) <.. (Display product details): <<extend>>
+    (Browse product) <.. (Display product opinions): <<extend>>
     
     (Administer website) <.. (Administer users): <<extend>>
     (Administer website) <.. (Administer products): <<extend>>
