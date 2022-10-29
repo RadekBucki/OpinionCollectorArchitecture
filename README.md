@@ -7,32 +7,47 @@ Designed with [PlantUML](https://plantuml.com/)
 ```plantuml
 @startuml
 component Frontend {
-    component ViewAndLogic {
+    component UserPanel {
     }
     
-    component FrontendBackendCommunication {
+    component AdminPanel {
+    }
+    
+    component BackendCommunication {
     }
 }
 
 component Backend {
-    component BackendFrontendCommunication {
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
     }
     
-    component BackendLogic {
-    }
-    
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
     }
 }
 
-database Database {
+component Database {
 }
 
-BackendDatabaseCommunication ...> Database: SQL
-BackendLogic                 -->  BackendDatabaseCommunication
-BackendFrontendCommunication -->  BackendLogic
-FrontendBackendCommunication ...> BackendFrontendCommunication: JSON
-ViewAndLogic                 -->  FrontendBackendCommunication
+DatabaseCommunication ...> Database: SQL
+
+UserLogic             -->  DatabaseCommunication
+ProductLogic          -->  DatabaseCommunication
+OpinionLogic          -->  DatabaseCommunication
+SuggestionLogic       -->  DatabaseCommunication
+
+BackendCommunication  ...> UserLogic: JSON
+BackendCommunication  ...> ProductLogic: JSON
+BackendCommunication  ...> OpinionLogic: JSON
+BackendCommunication  ...> SuggestionLogic: JSON
+
+UserPanel             -->  BackendCommunication
+AdminPanel            -->  BackendCommunication
 
 @enduml 
 ```

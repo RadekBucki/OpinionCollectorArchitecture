@@ -5,12 +5,12 @@
     
 component Frontend {
     
-    component FrontendBackendCommunication {
+    component BackendCommunication {
     }
 }
 
 component Backend {
-    component BackendFrontendCommunication {
+    component FrontendCommunication {
         note as Description
             Description: Create HTTP endpoints with Spring Boot.
             
@@ -45,7 +45,7 @@ component Backend {
     }
 }
 
-FrontendBackendCommunication ..> BackendFrontendCommunication: JSON
+BackendCommunication ..> FrontendCommunication: JSON
 
 @enduml 
 ```

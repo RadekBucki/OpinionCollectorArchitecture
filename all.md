@@ -26,7 +26,7 @@ component Frontend {
         }
     }
     
-    component FrontendBackendCommunication {
+    component BackendCommunication {
         note as Description1
             - GET /users - get all users data
             - POST /users/register - register new user or admin user
@@ -54,7 +54,7 @@ component Frontend {
 }
 
 component Backend {    
-    component BackendFrontendCommunication {
+    component FrontendCommunication {
         note as Description2
             - GET /users - get all users data
             - POST /users/register - register new user or admin user
@@ -116,7 +116,7 @@ component Backend {
         }
     }
     
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
@@ -154,12 +154,12 @@ component Backend {
     OpinionFacadeInterface  --> DatabaseCommunictionFacadeInterface
 }
 
-database Database {
+component Database {
 }
 
-BackendDatabaseCommunication ...> Database: SQL
-BackendFrontendCommunication -->  BackendLogic
-FrontendBackendCommunication ...> BackendFrontendCommunication: JSON
-ViewAndLogic                 -->  FrontendBackendCommunication
+DatabaseCommunication ...> Database: SQL
+FrontendCommunication -->  BackendLogic
+BackendCommunication ...> FrontendCommunication: JSON
+ViewAndLogic                 -->  BackendCommunication
 @enduml 
 ```

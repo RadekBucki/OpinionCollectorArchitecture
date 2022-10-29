@@ -3,10 +3,10 @@
 ```plantuml
 @startuml
 
-database Database {
+component Database {
 }
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         note as Authors
             Projectants: 
              - Jakub Mielczarek

@@ -4,24 +4,24 @@
 @startuml
     
 component Frontend {
-    component ViewAndLogic {
-        component UserPage {
-        }
-        component AdminPanel {
-        }
+    component UserPanel {
     }
     
-    component FrontendBackendCommunication {
+    component AdminPanel {
+    }
+    
+    component BackendCommunication {
     }
 }
 
 component Backend {
-    component BackendFrontendCommunication {
+    component FrontendCommunication {
     }
 }
 
-FrontendBackendCommunication --.> BackendFrontendCommunication: JSON
-ViewAndLogic                 -->  FrontendBackendCommunication
+BackendCommunication ...> FrontendCommunication: JSON
+UserPanel            -->  BackendCommunication
+AdminPanel           -->  BackendCommunication
 
 @enduml 
 ```

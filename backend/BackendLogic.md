@@ -3,22 +3,28 @@
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>>
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
     }
     
-    component BackendLogic {
-        interface UserFacadeInterface <<interface>>
-        interface ProductFacadeInterface <<interface>>
-        interface SuggestionFacadeInterface <<interface>>
-        interface OpinionFacadeInterface <<interface>>
-        
-        UserFacadeInterface       --> DatabaseCommunictionFacadeInterface
-        ProductFacadeInterface    --> DatabaseCommunictionFacadeInterface
-        SuggestionFacadeInterface --> DatabaseCommunictionFacadeInterface
-        OpinionFacadeInterface    --> DatabaseCommunictionFacadeInterface
+    component DatabaseCommunication {
     }
 }
+
+component Database {
+}
+
+DatabaseCommunication ...> Database: SQL
+
+UserLogic             -->  DatabaseCommunication
+ProductLogic          -->  DatabaseCommunication
+OpinionLogic          -->  DatabaseCommunication
+SuggestionLogic       -->  DatabaseCommunication
 @enduml 
 ```
 
@@ -27,7 +33,7 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
@@ -37,7 +43,7 @@ component Backend {
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     }
-    component BackendLogic {
+    component UserLogic {
         note as Authors
             Projectants: 
              - Michał Andrzejczak
@@ -82,7 +88,7 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
@@ -98,7 +104,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
+    component ProductLogic {
         note as Authors
             Projectants: 
              - Filip Grzelak
@@ -135,7 +141,7 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(userId: Integer) : Sugestion[]
@@ -144,7 +150,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
+    component SuggestionLogic {
         note as Authors
             Projectants: 
              - Paweł Wieczorek
@@ -175,7 +181,7 @@ component Backend {
 ```plantuml
 @startuml
 component Backend {
-    component BackendDatabaseCommunication {
+    component DatabaseCommunication {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
@@ -183,7 +189,7 @@ component Backend {
         }
     }
     
-    component BackendLogic {
+    component OpinionLogic {
         note as Authors
             Projectants: 
              - Paweł Wieczorek

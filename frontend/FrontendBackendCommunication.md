@@ -4,10 +4,13 @@
 @startuml
     
 component Frontend {
-    component ViewAndLogic {
+    component UserPanel {
     }
     
-    component FrontendBackendCommunication {
+    component AdminPanel {
+    }
+    
+    component BackendCommunication {
         note as Authors
             Projectants: 
              - Tomasz Roske
@@ -42,15 +45,15 @@ component Frontend {
             - POST /opinions/add - add opinion
         endnote
     }
+    AdminPanel            --> BackendCommunication
+    UserPanel             --> BackendCommunication
 }
 
 component Backend {
-    component BackendFrontendCommunication {
+    component FrontendCommunication {
     }
 }
 
-FrontendBackendCommunication --.> BackendFrontendCommunication: JSON
-ViewAndLogic                 -->  FrontendBackendCommunication
-
+BackendCommunication --.> FrontendCommunication: JSON
 @enduml 
 ```
