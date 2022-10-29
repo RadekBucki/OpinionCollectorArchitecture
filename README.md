@@ -134,18 +134,16 @@ actor Admin AS admin
 rectangle Application {
     admin -- (Search products)
     admin -- (Browse product)
-    admin -- (Administer website)
+    admin --  (Administer users)
+    admin --  (Administer products)
+    admin --  (Administer categories)
+    admin --  (Administer suggestions)
     
     (Search products) <.. (Display visible products list): <<extend>>
     (Search products) <.. (Filter visible products list): <<extend>>
     
     (Browse product) <.. (Display product details): <<extend>>
     (Browse product) <.. (Display product opinions): <<extend>>
-    
-    (Administer website) <.. (Administer users): <<extend>>
-    (Administer website) <.. (Administer products): <<extend>>
-    (Administer website) <.. (Administer categories): <<extend>>
-    (Administer website) <.. (Administer suggestions): <<extend>>
     
     (Administer users) <.. (Display users list): <<extend>>
     (Administer users) <.. (Edit user): <<extend>>
