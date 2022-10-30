@@ -57,7 +57,7 @@ component Backend {
             
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(userId: Integer) : Sugestion[]
-            + addSuggestion(productId: Integer, userId: Integer, suggestionDescription: String) : Suggestion
+            + addSuggestion(sku: String, userId: Integer, suggestionDescription: String) : Suggestion
             + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
         }
         note left of DatabaseCommunictionFacadeInterface::createUser

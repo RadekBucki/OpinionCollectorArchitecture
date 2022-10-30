@@ -209,7 +209,7 @@ component Backend {
         interface DatabaseCommunictionFacadeInterface <<interface>> {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(userId: Integer) : Sugestion[]
-            + addSuggestion(productId: Integer, userId: Integer, suggestionDescription: String) : Suggestion
+            + addSuggestion(sku: String, userId: Integer, suggestionDescription: String) : Suggestion
             + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
         }
     }
