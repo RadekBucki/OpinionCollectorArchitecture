@@ -54,7 +54,7 @@ component Frontend {
 
 component Backend {
     component UserLogic {
-        interface UserFacadeInterface <<interface>> {
+        interface UserFacade <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
@@ -65,7 +65,7 @@ component Backend {
         }
     }
     component ProductLogic {
-        interface ProductFacadeInterface <<interface>> {
+        interface ProductFacade <<interface>> {
             + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
             + getProducts() : Product[]
@@ -80,14 +80,14 @@ component Backend {
         }
     }
     component OpinionLogic {
-        interface OpinionFacadeInterface <<interface>> {
+        interface OpinionFacade <<interface>> {
             + getProductOpinions(product: Product) : Opinion[]
             + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(user: User) : Opinion[]
         }
     }
     component SuggestionLogic {
-        interface SuggestionFacadeInterface <<interface>> {
+        interface SuggestionFacade <<interface>> {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
             + getAllSuggestions() : Suggestion[]
@@ -96,10 +96,10 @@ component Backend {
     }
 }
 
-BackendCommunication  ...> UserFacadeInterface: JSON
-BackendCommunication  ...> ProductFacadeInterface: JSON
-BackendCommunication  ...> OpinionFacadeInterface: JSON
-BackendCommunication  ...> SuggestionFacadeInterface: JSON
+BackendCommunication  ...> UserFacade: JSON
+BackendCommunication  ...> ProductFacade: JSON
+BackendCommunication  ...> OpinionFacade: JSON
+BackendCommunication  ...> SuggestionFacade: JSON
 
 @enduml 
 ```

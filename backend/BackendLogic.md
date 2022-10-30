@@ -56,7 +56,7 @@ component Backend {
 @startuml
 component Backend {
     component DatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>> {
+        interface DatabaseCommunictionFacade <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
@@ -72,9 +72,9 @@ component Backend {
              - Mateusz Krasiński
         endnote
         
-        UserFacadeInterface --> DatabaseCommunictionFacadeInterface
+        UserFacade --> DatabaseCommunictionFacade
         
-        interface UserFacadeInterface <<interface>> {
+        interface UserFacade <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
@@ -84,20 +84,20 @@ component Backend {
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     
-        note top of UserFacadeInterface
+        note top of UserFacade
             Currently logged in user passed by consutructor. Null if current sessionis for guest.
             Only for admin user can, perform getAllUsers, registerAdmin and updateUser operations
         endnote
     
-        note left of UserFacadeInterface::register
+        note left of UserFacade::register
             Validate password length and complexity.
         endnote
     
-        note left of UserFacadeInterface::registerAdmin
+        note left of UserFacade::registerAdmin
             Verify that admin user creates next admin.
         endnote
     
-        note left of UserFacadeInterface::login
+        note left of UserFacade::login
             Returns user token or external token.
         endnote
     }
@@ -138,7 +138,7 @@ component Backend {
 @startuml
 component Backend {
     component DatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>> {
+        interface DatabaseCommunictionFacade <<interface>> {
             + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
             + getVisibleProducts() : Product[]
@@ -154,8 +154,8 @@ component Backend {
     }
     
     component ProductLogic {        
-        ProductFacadeInterface  --> DatabaseCommunictionFacadeInterface
-        interface ProductFacadeInterface <<interface>> {
+        ProductFacade --> DatabaseCommunictionFacade
+        interface ProductFacade <<interface>> {
             + getProductBySku(sku: String) : Product
             + getAllProducts() : Product[]
             + getProducts() : Product[]
@@ -169,7 +169,7 @@ component Backend {
             + removeCategory(categoryName: String)
         }
     
-        note top of ProductFacadeInterface
+        note top of ProductFacade
             Currently logged in user passed by consutructor. Null if current sessionis for guest.
             Verify that user passed by constructor is admin and can perform add, edit
             and remove operations.
@@ -206,7 +206,7 @@ component Backend {
 @startuml
 component Backend {
     component DatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>> {
+        interface DatabaseCommunictionFacade <<interface>> {
             + getAllSuggestions() : Suggestion[]
             + getUserSugestions(userId: Integer) : Sugestion[]
             + addSuggestion(productId: Integer, userId: Integer, suggestionDescription: String) : Suggestion
@@ -216,15 +216,15 @@ component Backend {
     
     component SuggestionLogic {
         
-        SuggestionFacadeInterface  --> DatabaseCommunictionFacadeInterface
-        interface SuggestionFacadeInterface <<interface>> {
+        SuggestionFacade --> DatabaseCommunictionFacade
+        interface SuggestionFacade <<interface>> {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
             + getAllSuggestions() : Suggestion[]
             + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
         }
     
-        note top of SuggestionFacadeInterface
+        note top of SuggestionFacade
             Currently logged in user passed by consutructor. Null if current sessionis for guest.
             Verify that user passed by constructor is:
              - admin to perform  getAllSuggestions and replySuggestion operations
@@ -266,7 +266,7 @@ component Backend {
 @startuml
 component Backend {
     component DatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>> {
+        interface DatabaseCommunictionFacade <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(userId: Integer) : Opinion[]
@@ -274,14 +274,14 @@ component Backend {
     }
     
     component OpinionLogic {        
-        OpinionFacadeInterface  --> DatabaseCommunictionFacadeInterface
-        interface OpinionFacadeInterface <<interface>> {
+        OpinionFacade  --> DatabaseCommunictionFacade
+        interface OpinionFacade <<interface>> {
             + getProductOpinions(product: Product) : Opinion[]
             + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(user: User) : Opinion[]
         }
     
-        note top of OpinionFacadeInterface
+        note top of OpinionFacade
             Currently logged in user passed by consutructor. Null if current sessionis for guest.
             Verify that user passed by constructor is:
              - logged in not adminto perform addProductOpinion and getUserOpinions operation.
