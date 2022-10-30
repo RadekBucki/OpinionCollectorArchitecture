@@ -31,7 +31,7 @@ component Database {
 }
 component Backend {
     component DatabaseCommunication {
-        interface DatabaseCommunictionFacadeInterface <<interface>> {
+        interface DatabaseCommunictionFacade <<interface>> {
             + getAllUsers() : User[]
             + getUserByToken(token: String) : User
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
@@ -60,23 +60,23 @@ component Backend {
             + addSuggestion(sku: String, userId: Integer, suggestionDescription: String) : Suggestion
             + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
         }
-        note left of DatabaseCommunictionFacadeInterface::createUser
+        note left of DatabaseCommunictionFacade::createUser
             Returns Spring Repository
             item type.
         endnote
         
-        note left of DatabaseCommunictionFacadeInterface::addUserToken
+        note left of DatabaseCommunictionFacade::addUserToken
             Allows to create/update (if expired)
             user session token.
         endnote
         
-        note left of DatabaseCommunictionFacadeInterface::getAllProducts
+        note left of DatabaseCommunictionFacade::getAllProducts
             Only this method returns 
             unvisible products
             (for admin).
         endnote
         
-        note left of DatabaseCommunictionFacadeInterface::getProductsFilterProducts
+        note left of DatabaseCommunictionFacade::getProductsFilterProducts
             Working on like or between 
             statementfor non null passed 
             fields.
@@ -84,7 +84,7 @@ component Backend {
     }
 }
 
-DatabaseCommunictionFacadeInterface ...> Database : SQL
+DatabaseCommunictionFacade ...> Database : SQL
 
 @enduml 
 ```
