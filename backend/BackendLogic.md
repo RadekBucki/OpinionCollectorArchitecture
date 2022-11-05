@@ -219,7 +219,7 @@ component Backend {
         SuggestionFacade --> DatabaseCommunictionFacade
         interface SuggestionFacade <<interface>> {
             + getUserSugestions() : Sugestion[]
-            + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
+            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
             + getAllSuggestions() : Suggestion[]
             + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
         }
@@ -268,7 +268,7 @@ component Backend {
     component DatabaseCommunication {
         interface DatabaseCommunictionFacade <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, userId: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + addProductOpinion(opinionValue: Integer, sku: String, userId: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(userId: Integer) : Opinion[]
         }
     }
@@ -276,9 +276,9 @@ component Backend {
     component OpinionLogic {        
         OpinionFacade  --> DatabaseCommunictionFacade
         interface OpinionFacade <<interface>> {
-            + getProductOpinions(product: Product) : Opinion[]
+            + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions(user: User) : Opinion[]
+            + getUserOpinions() : Opinion[]
         }
     
         note top of OpinionFacade

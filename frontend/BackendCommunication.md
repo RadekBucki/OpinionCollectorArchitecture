@@ -81,15 +81,15 @@ component Backend {
     }
     component OpinionLogic {
         interface OpinionFacade <<interface>> {
-            + getProductOpinions(product: Product) : Opinion[]
+            + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions(user: User) : Opinion[]
+            + getUserOpinions() : Opinion[]
         }
     }
     component SuggestionLogic {
         interface SuggestionFacade <<interface>> {
             + getUserSugestions() : Sugestion[]
-            + addSuggestion(product: Product, suggestionDescription: String) : Suggestion
+            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
             + getAllSuggestions() : Suggestion[]
             + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
         }
