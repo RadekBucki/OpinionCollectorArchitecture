@@ -278,7 +278,7 @@ component Backend {
         interface OpinionFacade <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions(user: User) : Opinion[]
+            + getUserOpinions() : Opinion[]
         }
     
         note top of OpinionFacade
