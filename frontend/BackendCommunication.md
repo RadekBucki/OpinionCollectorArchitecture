@@ -82,7 +82,7 @@ component Backend {
     component OpinionLogic {
         interface OpinionFacade <<interface>> {
             + getProductOpinions(product: Product) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(user: User) : Opinion[]
         }
     }
