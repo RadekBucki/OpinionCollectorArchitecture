@@ -268,7 +268,7 @@ component Backend {
     component DatabaseCommunication {
         interface DatabaseCommunictionFacade <<interface>> {
             + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + addProductOpinion(opinionValue: Integer, userId: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(userId: Integer) : Opinion[]
         }
     }
