@@ -52,7 +52,7 @@ component Backend {
             + removeCategory(categoryName: String)
             
             + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + addProductOpinion(opinionValue: Integer, userId: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
             + getUserOpinions(userId: Integer) : Opinion[]
             
             + getAllSuggestions() : Suggestion[]
