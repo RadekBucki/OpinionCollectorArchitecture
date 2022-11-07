@@ -34,20 +34,24 @@ component Backend {
 component Database {
 }
 
-DatabaseCommunication ...> Database: SQL
+DatabaseCommunication -(0- Database: SQL
 
-UserLogic             -->  DatabaseCommunication
-ProductLogic          -->  DatabaseCommunication
-OpinionLogic          -->  DatabaseCommunication
-SuggestionLogic       -->  DatabaseCommunication
+UserLogic             -(0- DatabaseCommunication : DatabaseCommunicationFacade
+ProductLogic          -(0- DatabaseCommunication : DatabaseCommunicationFacade
+OpinionLogic          -(0- DatabaseCommunication : DatabaseCommunicationFacade
+SuggestionLogic       -(0- DatabaseCommunication : DatabaseCommunicationFacade
 
-BackendCommunication  ...> UserLogic: JSON
-BackendCommunication  ...> ProductLogic: JSON
-BackendCommunication  ...> OpinionLogic: JSON
-BackendCommunication  ...> SuggestionLogic: JSON
+BackendCommunication  -(0- UserLogic       : UserFacade
+BackendCommunication  -(0- ProductLogic    : ProductFacade
+BackendCommunication  -(0- OpinionLogic    : OpinionFacade
+BackendCommunication  -(0- SuggestionLogic : LogicFacade
 
-UserPanel             -->  BackendCommunication
-AdminPanel            -->  BackendCommunication
+ProductLogic          -(0- UserLogic : UserFacade
+OpinionLogic          -(0- UserLogic : UserFacade
+SuggestionLogic       -(0- UserLogic : UserFacade
+
+UserPanel             -(0- BackendCommunication : BackendCommunicationFacade
+AdminPanel            -(0- BackendCommunication : BackendCommunicationFacade
 
 @enduml 
 ```

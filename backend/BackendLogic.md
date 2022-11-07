@@ -19,12 +19,12 @@ component Backend {
 component Database {
 }
 
-DatabaseCommunication ...> Database: SQL
+DatabaseCommunication -(0-  Database : SQL
 
-UserLogic             -->  DatabaseCommunication
-ProductLogic          -->  DatabaseCommunication
-OpinionLogic          -->  DatabaseCommunication
-SuggestionLogic       -->  DatabaseCommunication
+UserLogic             -(0-  DatabaseCommunication : DatabaseCommunictionFacade
+ProductLogic          -(0-  DatabaseCommunication : DatabaseCommunictionFacade
+OpinionLogic          -(0-  DatabaseCommunication : DatabaseCommunictionFacade
+SuggestionLogic       -(0-  DatabaseCommunication : DatabaseCommunictionFacade
 @enduml 
 ```
 
@@ -288,5 +288,52 @@ component Backend {
         endnote
     }
 }
+@enduml 
+```
+
+## Backend logic interface communication
+
+```plantuml
+@startuml
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
+    }
+    
+    interface UserFacade <<interface>> {
+        + getAllUsers() : User[]
+        + getUserByToken(token: String) : User
+        + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+        + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+        + login(email: String, password: String): String
+        + getUserByToken(token: String): User
+        + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+    }
+
+    note top of UserFacade
+        Currently logged in user passed by consutructor. Null if current sessionis for guest.
+        Only for admin user can, perform getAllUsers, registerAdmin and updateUser operations
+    endnote
+
+    note left of UserFacade::register
+        Validate password length and complexity.
+    endnote
+
+    note left of UserFacade::registerAdmin
+        Verify that admin user creates next admin.
+    endnote
+
+    note left of UserFacade::login
+        Returns user token or external token.
+    endnote
+    
+ProductLogic    ..>  UserFacade
+OpinionLogic    ..>  UserFacade
+SuggestionLogic ..>  UserFacade
+UserFacade      <|.. UserLogic
 @enduml 
 ```

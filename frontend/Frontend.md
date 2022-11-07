@@ -15,13 +15,24 @@ component Frontend {
 }
 
 component Backend {
-    component FrontendCommunication {
+    component UserLogic {
     }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
+    
 }
 
-BackendCommunication ...> FrontendCommunication: JSON
-UserPanel            -->  BackendCommunication
-AdminPanel           -->  BackendCommunication
+
+BackendCommunication  -(0- UserLogic       : UserFacade
+BackendCommunication  -(0- ProductLogic    : ProductFacade
+BackendCommunication  -(0- OpinionLogic    : OpinionFacade
+BackendCommunication  -(0- SuggestionLogic : LogicFacade
+
+UserPanel            -(0-  BackendCommunication : BackendCommunicationFacade
+AdminPanel           -(0-  BackendCommunication : BackendCommunicationFacade
 
 @enduml 
 ```

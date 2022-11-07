@@ -40,7 +40,7 @@ component Frontend {
     component BackendCommunication {
     }
 
-    AdminPanel --> BackendCommunication
+    AdminPanel -(0- BackendCommunication
 }
 
 @enduml 
