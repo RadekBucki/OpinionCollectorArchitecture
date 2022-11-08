@@ -58,7 +58,6 @@ component Backend {
     component DatabaseCommunication {
         interface DatabaseCommunictionFacade <<interface>> {
             + getAllUsers() : User[]
-            + getUserByToken(token: String) : User
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
             + getUserToken(email: String, passwordHash: String) : String
             + addUserToken(userId: Integer, token: String) : String
@@ -304,36 +303,18 @@ component Backend {
     component SuggestionLogic {
     }
     
-    interface UserFacade <<interface>> {
-        + getAllUsers() : User[]
+    interface UserAuth <<interface>> {
         + getUserByToken(token: String) : User
-        + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-        + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-        + login(email: String, password: String): String
-        + getUserByToken(token: String): User
-        + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
     }
-
-    note top of UserFacade
-        Currently logged in user passed by consutructor. Null if current sessionis for guest.
-        Only for admin user can, perform getAllUsers, registerAdmin and updateUser operations
-    endnote
-
-    note left of UserFacade::register
-        Validate password length and complexity.
-    endnote
-
-    note left of UserFacade::registerAdmin
-        Verify that admin user creates next admin.
-    endnote
-
-    note left of UserFacade::login
-        Returns user token or external token.
+    
+    note left of UserAuth
+        Used to Authentication
+        given token on endpoints.
     endnote
     
-ProductLogic    ..>  UserFacade
-OpinionLogic    ..>  UserFacade
-SuggestionLogic ..>  UserFacade
-UserFacade      <|.. UserLogic
+    ProductLogic    ..>  UserAuth
+    OpinionLogic    ..>  UserAuth
+    SuggestionLogic ..>  UserAuth
+    UserAuth      <|.. UserLogic
 @enduml 
 ```

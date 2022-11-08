@@ -41,7 +41,6 @@ component Backend {
     
     interface DatabaseCommunictionFacade <<interface>> {
         + getAllUsers() : User[]
-        + getUserByToken(token: String) : User
         + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         + getUserToken(email: String, passwordHash: String) : String
         + addUserToken(userId: Integer, token: String) : String
