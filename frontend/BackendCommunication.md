@@ -62,7 +62,6 @@ interface UserFacade <<interface>> {
     + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
     + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
     + login(email: String, password: String): String
-    + getUserByToken(token: String): User
     + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
 }
 

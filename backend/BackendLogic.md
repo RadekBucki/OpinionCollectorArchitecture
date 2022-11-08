@@ -59,8 +59,6 @@ component Backend {
         interface DatabaseCommunictionFacade <<interface>> {
             + getAllUsers() : User[]
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-            + getUserToken(email: String, passwordHash: String) : String
-            + addUserToken(userId: Integer, token: String) : String
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     }
@@ -79,7 +77,6 @@ component Backend {
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
             + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
             + login(email: String, password: String): String
-            + getUserByToken(token: String): User
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         }
     

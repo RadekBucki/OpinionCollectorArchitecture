@@ -42,8 +42,6 @@ component Backend {
     interface DatabaseCommunictionFacade <<interface>> {
         + getAllUsers() : User[]
         + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-        + getUserToken(email: String, passwordHash: String) : String
-        + addUserToken(userId: Integer, token: String) : String
         + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
     
         + getProductBySku(sku: String) : Product
@@ -70,11 +68,6 @@ component Backend {
     note left of DatabaseCommunictionFacade::createUser
         Returns Spring Repository
         item type.
-    endnote
-    
-    note left of DatabaseCommunictionFacade::addUserToken
-        Allows to create/update (if expired)
-        user session token.
     endnote
     
     note left of DatabaseCommunictionFacade::getAllProducts
