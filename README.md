@@ -36,22 +36,22 @@ component Database {
 
 DatabaseCommunication -(0- Database: SQL
 
-UserLogic             -(0- DatabaseCommunication : DatabaseCommunicationFacade
-ProductLogic          -(0- DatabaseCommunication : DatabaseCommunicationFacade
-OpinionLogic          -(0- DatabaseCommunication : DatabaseCommunicationFacade
-SuggestionLogic       -(0- DatabaseCommunication : DatabaseCommunicationFacade
+UserLogic             -(0- DatabaseCommunication : DatabaseCommunication
+ProductLogic          -(0- DatabaseCommunication : DatabaseCommunication
+OpinionLogic          -(0- DatabaseCommunication : DatabaseCommunication
+SuggestionLogic       -(0- DatabaseCommunication : DatabaseCommunication
 
-BackendCommunication  -(0- UserLogic       : UserFacade
-BackendCommunication  -(0- ProductLogic    : ProductFacade
-BackendCommunication  -(0- OpinionLogic    : OpinionFacade
-BackendCommunication  -(0- SuggestionLogic : LogicFacade
+BackendCommunication  -(0- UserLogic       : Users
+BackendCommunication  -(0- ProductLogic    : Products
+BackendCommunication  -(0- OpinionLogic    : Opinions
+BackendCommunication  -(0- SuggestionLogic : Logics
 
-ProductLogic          -(0- UserLogic : UserFacade
-OpinionLogic          -(0- UserLogic : UserFacade
-SuggestionLogic       -(0- UserLogic : UserFacade
+ProductLogic          -(0- UserLogic : UserAuth
+OpinionLogic          -(0- UserLogic : UserAuth
+SuggestionLogic       -(0- UserLogic : UserAuth
 
-UserPanel             -(0- BackendCommunication : BackendCommunicationFacade
-AdminPanel            -(0- BackendCommunication : BackendCommunicationFacade
+UserPanel             -(0- BackendCommunication : BackendCommunication
+AdminPanel            -(0- BackendCommunication : BackendCommunication
 
 @enduml 
 ```

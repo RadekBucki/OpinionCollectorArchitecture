@@ -26,13 +26,13 @@ component Backend {
 }
 
 
-BackendCommunication  -(0- UserLogic       : UserFacade
-BackendCommunication  -(0- ProductLogic    : ProductFacade
-BackendCommunication  -(0- OpinionLogic    : OpinionFacade
-BackendCommunication  -(0- SuggestionLogic : LogicFacade
+BackendCommunication  -(0- UserLogic       : User
+BackendCommunication  -(0- ProductLogic    : Product
+BackendCommunication  -(0- OpinionLogic    : Opinion
+BackendCommunication  -(0- SuggestionLogic : Logic
 
-UserPanel            -(0-  BackendCommunication : BackendCommunicationFacade
-AdminPanel           -(0-  BackendCommunication : BackendCommunicationFacade
+UserPanel            -(0-  BackendCommunication : BackendCommunication
+AdminPanel           -(0-  BackendCommunication : BackendCommunication
 
 @enduml 
 ```

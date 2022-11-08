@@ -56,7 +56,7 @@ component Backend {
     }
 }
 
-interface UserFacade <<interface>> {
+interface User <<interface>> {
     + getAllUsers() : User[]
     + getUserByToken(token: String) : User
     + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
@@ -65,8 +65,8 @@ interface UserFacade <<interface>> {
     + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
 }
 
-BackendCommunication ..>   UserFacade
-UserFacade           <|... UserLogic
+BackendCommunication ..>   User
+User                 <|... UserLogic
 
 @enduml 
 ```
@@ -82,7 +82,7 @@ component Backend {
     }
 }
 
-interface ProductFacade <<interface>> {
+interface Products <<interface>> {
     + getProductBySku(sku: String) : Product
     + getAllProducts() : Product[]
     + getProducts() : Product[]
@@ -96,8 +96,8 @@ interface ProductFacade <<interface>> {
     + removeCategory(categoryName: String)
 }
 
-BackendCommunication ..>   ProductFacade
-ProductFacade        <|... ProductLogic
+BackendCommunication ..>   Products
+Products             <|... ProductLogic
 
 @enduml 
 ```
@@ -113,14 +113,14 @@ component Backend {
     }
 }
 
-interface OpinionFacade <<interface>> {
+interface Opinions <<interface>> {
     + getProductOpinions(sku: String) : Opinion[]
     + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
     + getUserOpinions() : Opinion[]
 }
 
-BackendCommunication ..>   OpinionFacade
-OpinionFacade        <|... OpinionLogic
+BackendCommunication ..>   Opinions
+Opinions             <|... OpinionLogic
 
 @enduml 
 ```
@@ -135,15 +135,15 @@ component Backend {
     component SuggestionLogic {
     }
 }
-interface SuggestionFacade <<interface>> {
+interface Suggestions <<interface>> {
     + getUserSugestions() : Sugestion[]
     + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
     + getAllSuggestions() : Suggestion[]
     + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
 }
 
-BackendCommunication ..> SuggestionFacade
-SuggestionFacade     <|... SuggestionLogic
+BackendCommunication ..>   Suggestions
+Suggestions          <|... SuggestionLogic
 
 @enduml 
 ```

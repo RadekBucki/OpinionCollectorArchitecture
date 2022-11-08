@@ -21,14 +21,14 @@ component Database {
 
 DatabaseCommunication -(0-  Database : SQL
 
-UserLogic             -(0-  DatabaseCommunication : DatabaseCommunictionFacade
-ProductLogic          -(0-  DatabaseCommunication : DatabaseCommunictionFacade
-OpinionLogic          -(0-  DatabaseCommunication : DatabaseCommunictionFacade
-SuggestionLogic       -(0-  DatabaseCommunication : DatabaseCommunictionFacade
+UserLogic             -(0-  DatabaseCommunication : DatabaseCommuniction
+ProductLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
+OpinionLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
+SuggestionLogic       -(0-  DatabaseCommunication : DatabaseCommuniction
 @enduml 
 ```
 
-## UserFacade
+## User
 ```plantuml
 @startuml
 component Backend {
@@ -52,7 +52,7 @@ component Backend {
 @enduml 
 ```
 
-## ProductFacade
+## Product
 ```plantuml
 @startuml
 component Backend {    
@@ -81,7 +81,7 @@ component Backend {
 @enduml 
 ```
 
-## SuggestionFacade
+## Suggestion
 
 ```plantuml
 @startuml
@@ -104,7 +104,7 @@ component Backend {
 @enduml 
 ```
 
-## OpinionFacade
+## Opinion
 
 ```plantuml
 @startuml

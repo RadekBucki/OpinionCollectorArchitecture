@@ -39,7 +39,7 @@ component Backend {
     component DatabaseCommunication {
     }
     
-    interface DatabaseCommunictionFacade <<interface>> {
+    interface DatabaseCommuniction <<interface>> {
         + getAllUsers() : User[]
         + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
         + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
@@ -65,28 +65,28 @@ component Backend {
         + addSuggestion(sku: String, userId: Integer, suggestionDescription: String) : Suggestion
         + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
     }
-    note left of DatabaseCommunictionFacade::createUser
+    note left of DatabaseCommuniction::createUser
         Returns Spring Repository
         item type.
     endnote
     
-    note left of DatabaseCommunictionFacade::getAllProducts
+    note left of DatabaseCommuniction::getAllProducts
         Only this method returns 
         unvisible products
         (for admin).
     endnote
     
-    note left of DatabaseCommunictionFacade::getProductsFilterProducts
+    note left of DatabaseCommuniction::getProductsFilterProducts
         Working on like or between 
         statementfor non null passed 
         fields.
     endnote
     
-    UserLogic                   ..>  DatabaseCommunictionFacade
-    ProductLogic                ..>  DatabaseCommunictionFacade
-    OpinionLogic                ..>  DatabaseCommunictionFacade
-    SuggestionLogic             ..>  DatabaseCommunictionFacade
-    DatabaseCommunictionFacade  <|..  DatabaseCommunication
+    UserLogic                   ..>  DatabaseCommuniction
+    ProductLogic                ..>  DatabaseCommuniction
+    OpinionLogic                ..>  DatabaseCommuniction
+    SuggestionLogic             ..>  DatabaseCommuniction
+    DatabaseCommuniction        <|..  DatabaseCommunication
 }
 
 @enduml 
