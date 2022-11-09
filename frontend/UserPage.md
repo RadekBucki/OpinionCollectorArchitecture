@@ -34,7 +34,7 @@ component Frontend {
     
     component BackendCommunication {
     }
-    UserPage --> BackendCommunication
+    UserPage -(0- BackendCommunication : BackendCommunication
 }
 
 @enduml 

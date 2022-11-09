@@ -19,16 +19,16 @@ component Backend {
 component Database {
 }
 
-DatabaseCommunication ...> Database: SQL
+DatabaseCommunication -(0-  Database : SQL
 
-UserLogic             -->  DatabaseCommunication
-ProductLogic          -->  DatabaseCommunication
-OpinionLogic          -->  DatabaseCommunication
-SuggestionLogic       -->  DatabaseCommunication
+UserLogic             -(0-  DatabaseCommunication : DatabaseCommuniction
+ProductLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
+OpinionLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
+SuggestionLogic       -(0-  DatabaseCommunication : DatabaseCommuniction
 @enduml 
 ```
 
-## UserFacade
+## User
 ```plantuml
 @startuml
 component Backend {
@@ -52,60 +52,7 @@ component Backend {
 @enduml 
 ```
 
-```plantuml
-@startuml
-component Backend {
-    component DatabaseCommunication {
-        interface DatabaseCommunictionFacade <<interface>> {
-            + getAllUsers() : User[]
-            + getUserByToken(token: String) : User
-            + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-            + getUserToken(email: String, passwordHash: String) : String
-            + addUserToken(userId: Integer, token: String) : String
-            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-        }
-    }
-    component UserLogic {
-        note as Authors
-            Projectants: 
-             - Michał Andrzejczak
-             - Mateusz Krasiński
-        endnote
-        
-        UserFacade --> DatabaseCommunictionFacade
-        
-        interface UserFacade <<interface>> {
-            + getAllUsers() : User[]
-            + getUserByToken(token: String) : User
-            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-            + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-            + login(email: String, password: String): String
-            + getUserByToken(token: String): User
-            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-        }
-    
-        note top of UserFacade
-            Currently logged in user passed by consutructor. Null if current sessionis for guest.
-            Only for admin user can, perform getAllUsers, registerAdmin and updateUser operations
-        endnote
-    
-        note left of UserFacade::register
-            Validate password length and complexity.
-        endnote
-    
-        note left of UserFacade::registerAdmin
-            Verify that admin user creates next admin.
-        endnote
-    
-        note left of UserFacade::login
-            Returns user token or external token.
-        endnote
-    }
-}
-@enduml 
-```
-
-## ProductFacade
+## Product
 ```plantuml
 @startuml
 component Backend {    
@@ -134,52 +81,7 @@ component Backend {
 @enduml 
 ```
 
-```plantuml
-@startuml
-component Backend {
-    component DatabaseCommunication {
-        interface DatabaseCommunictionFacade <<interface>> {
-            + getProductBySku(sku: String) : Product
-            + getAllProducts() : Product[]
-            + getVisibleProducts() : Product[]
-            + getProductsFilterProducts(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
-            + createProduct(authorId: Integer, sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + updateProduct(authorId: Integer, sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + removeProduct(sku: String)
-
-            + createCategory(categoryName: String, visible: Boolean) : Category
-            + updateCategory(categoryName: String, visible: Boolean): Category
-            + removeCategory(categoryName: String)
-        }
-    }
-    
-    component ProductLogic {        
-        ProductFacade --> DatabaseCommunictionFacade
-        interface ProductFacade <<interface>> {
-            + getProductBySku(sku: String) : Product
-            + getAllProducts() : Product[]
-            + getProducts() : Product[]
-            + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
-            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + removeProduct(sku: String)
-            
-            + addCategory(categoryName: String, visible: Boolean) : Category
-            + editCategory(categoryName: String, visible: Boolean) : Category
-            + removeCategory(categoryName: String)
-        }
-    
-        note top of ProductFacade
-            Currently logged in user passed by consutructor. Null if current sessionis for guest.
-            Verify that user passed by constructor is admin and can perform add, edit
-            and remove operations.
-        endnote
-    }
-}
-@enduml 
-```
-
-## SuggestionFacade
+## Suggestion
 
 ```plantuml
 @startuml
@@ -202,40 +104,7 @@ component Backend {
 @enduml 
 ```
 
-```plantuml
-@startuml
-component Backend {
-    component DatabaseCommunication {
-        interface DatabaseCommunictionFacade <<interface>> {
-            + getAllSuggestions() : Suggestion[]
-            + getUserSugestions(userId: Integer) : Sugestion[]
-            + addSuggestion(sku: String, userId: Integer, suggestionDescription: String) : Suggestion
-            + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
-        }
-    }
-    
-    component SuggestionLogic {
-        
-        SuggestionFacade --> DatabaseCommunictionFacade
-        interface SuggestionFacade <<interface>> {
-            + getUserSugestions() : Sugestion[]
-            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
-            + getAllSuggestions() : Suggestion[]
-            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
-        }
-    
-        note top of SuggestionFacade
-            Currently logged in user passed by consutructor. Null if current sessionis for guest.
-            Verify that user passed by constructor is:
-             - admin to perform  getAllSuggestions and replySuggestion operations
-             - logged in not adminto perform getUserSugestions and addSuggestion.
-        endnote
-    }
-}
-@enduml 
-```
-
-## OpinionFacade
+## Opinion
 
 ```plantuml
 @startuml
@@ -262,31 +131,31 @@ component Backend {
 @enduml 
 ```
 
+## Backend logic interface communication
+
 ```plantuml
 @startuml
-component Backend {
-    component DatabaseCommunication {
-        interface DatabaseCommunictionFacade <<interface>> {
-            + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, sku: String, userId: Integer, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions(userId: Integer) : Opinion[]
-        }
+    component UserLogic {
+    }
+    component ProductLogic {
+    }
+    component OpinionLogic {
+    }
+    component SuggestionLogic {
     }
     
-    component OpinionLogic {        
-        OpinionFacade  --> DatabaseCommunictionFacade
-        interface OpinionFacade <<interface>> {
-            + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions() : Opinion[]
-        }
-    
-        note top of OpinionFacade
-            Currently logged in user passed by consutructor. Null if current sessionis for guest.
-            Verify that user passed by constructor is:
-             - logged in not adminto perform addProductOpinion and getUserOpinions operation.
-        endnote
+    interface UserAuth <<interface>> {
+        + getUserByToken(token: String) : User
     }
-}
+    
+    note left of UserAuth
+        Used to Authentication
+        given token on endpoints.
+    endnote
+    
+    ProductLogic    ..>  UserAuth
+    OpinionLogic    ..>  UserAuth
+    SuggestionLogic ..>  UserAuth
+    UserAuth      <|.. UserLogic
 @enduml 
 ```

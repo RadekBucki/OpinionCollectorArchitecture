@@ -42,64 +42,108 @@ component Frontend {
 }
 @enduml 
 ```
+## Interfaces to communication with backend
 
 ```plantuml
 @startuml
-left to right direction
 component Frontend {
-    
     component BackendCommunication {
     }
 }
 
 component Backend {
     component UserLogic {
-        interface UserFacade <<interface>> {
-            + getAllUsers() : User[]
-            + getUserByToken(token: String) : User
-            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-            + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-            + login(email: String, password: String): String
-            + getUserByToken(token: String): User
-            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
-        }
-    }
-    component ProductLogic {
-        interface ProductFacade <<interface>> {
-            + getProductBySku(sku: String) : Product
-            + getAllProducts() : Product[]
-            + getProducts() : Product[]
-            + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
-            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
-            + removeProduct(sku: String)
-            
-            + addCategory(categoryName: String, visible: Boolean) : Category
-            + editCategory(categoryName: String, visible: Boolean) : Category
-            + removeCategory(categoryName: String)
-        }
-    }
-    component OpinionLogic {
-        interface OpinionFacade <<interface>> {
-            + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions() : Opinion[]
-        }
-    }
-    component SuggestionLogic {
-        interface SuggestionFacade <<interface>> {
-            + getUserSugestions() : Sugestion[]
-            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
-            + getAllSuggestions() : Suggestion[]
-            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
-        }
     }
 }
 
-BackendCommunication  ...> UserFacade: JSON
-BackendCommunication  ...> ProductFacade: JSON
-BackendCommunication  ...> OpinionFacade: JSON
-BackendCommunication  ...> SuggestionFacade: JSON
+interface User <<interface>> {
+    + getAllUsers() : User[]
+    + getUserByToken(token: String) : User
+    + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+    + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+    + login(email: String, password: String): String
+    + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+}
+
+BackendCommunication ..>   User
+User                 <|... UserLogic
+
+@enduml 
+```
+```plantuml
+@startuml
+component Frontend {
+    component BackendCommunication {
+    }
+}
+
+component Backend {
+    component ProductLogic {
+    }
+}
+
+interface Products <<interface>> {
+    + getProductBySku(sku: String) : Product
+    + getAllProducts() : Product[]
+    + getProducts() : Product[]
+    + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+    + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+    + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+    + removeProduct(sku: String)
+    
+    + addCategory(categoryName: String, visible: Boolean) : Category
+    + editCategory(categoryName: String, visible: Boolean) : Category
+    + removeCategory(categoryName: String)
+}
+
+BackendCommunication ..>   Products
+Products             <|... ProductLogic
+
+@enduml 
+```
+```plantuml
+@startuml
+component Frontend {
+    component BackendCommunication {
+    }
+}
+
+component Backend {
+    component OpinionLogic {
+    }
+}
+
+interface Opinions <<interface>> {
+    + getProductOpinions(sku: String) : Opinion[]
+    + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+    + getUserOpinions() : Opinion[]
+}
+
+BackendCommunication ..>   Opinions
+Opinions             <|... OpinionLogic
+
+@enduml 
+```
+```plantuml
+@startuml
+component Frontend {
+    component BackendCommunication {
+    }
+}
+
+component Backend {
+    component SuggestionLogic {
+    }
+}
+interface Suggestions <<interface>> {
+    + getUserSugestions() : Sugestion[]
+    + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
+    + getAllSuggestions() : Suggestion[]
+    + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+}
+
+BackendCommunication ..>   Suggestions
+Suggestions          <|... SuggestionLogic
 
 @enduml 
 ```
