@@ -84,7 +84,7 @@ component Backend {
     }
 }
 
-interface Products <<interface>> {
+interface Product <<interface>> {
     + getProductBySku(sku: String) : Product
     + getAllProducts() : Product[]
     + getProducts() : Product[]
@@ -100,7 +100,7 @@ interface Products <<interface>> {
     + getAllCategories(() : Category[]
 }
 
-BackendCommunication ..>   Products
+BackendCommunication ..>   Product
 Products             <|... ProductLogic
 
 @enduml 
