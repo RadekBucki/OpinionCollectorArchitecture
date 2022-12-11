@@ -52,6 +52,8 @@ component Backend {
         + updateProduct(authorId: Integer, sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
         + removeProduct(sku: String)
 
+        + getAllCategories() : Category[]
+        + getCategoryByname(name: String) : Category[]
         + createCategory(categoryName: String, visible: Boolean) : Category
         + updateCategory(categoryName: String, visible: Boolean): Category
         + removeCategory(categoryName: String)

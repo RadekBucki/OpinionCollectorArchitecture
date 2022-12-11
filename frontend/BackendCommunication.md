@@ -19,10 +19,10 @@ component Frontend {
             - GET /users - get all users data
             - POST /users/register - register new user or admin user
             - POST /users/login - get user data and token
-            - PUT /users/update - update user data
-            - GET /products - get products
-            - GET /products/all - get all products
-            - GET /products/search - search products
+            - PUT /users/update/{id} - update user data
+            - GET /products/{page} - get products
+            - GET /products/all/{page} - get all products
+            - POST /products/search - search products
             - GET /products/details - get products details
             - POST /products/add - add product
             - PUT /products/edit - edit product
@@ -30,6 +30,8 @@ component Frontend {
             - POST /categories/add - add category
             - PUT /categories/edit - edit category
             - DELETE /categories/delete - remove category
+            - GET /categories - get categories
+            - GET /categories/all - get categories all
             - GET /suggestions/user - get user suggestions
             - POST /suggestions/add - add suggestion
             - GET /suggestions/get - get all suggestions
@@ -82,7 +84,7 @@ component Backend {
     }
 }
 
-interface Products <<interface>> {
+interface Product <<interface>> {
     + getProductBySku(sku: String) : Product
     + getAllProducts() : Product[]
     + getProducts() : Product[]
@@ -94,9 +96,11 @@ interface Products <<interface>> {
     + addCategory(categoryName: String, visible: Boolean) : Category
     + editCategory(categoryName: String, visible: Boolean) : Category
     + removeCategory(categoryName: String)
+    + getCategories() : Category[]
+    + getAllCategories(() : Category[]
 }
 
-BackendCommunication ..>   Products
+BackendCommunication ..>   Product
 Products             <|... ProductLogic
 
 @enduml 
