@@ -43,7 +43,7 @@ component Backend {
             - GET /users - get all users data
             - POST /users/register - register new user or admin user
             - GET /users/login - get user data and token
-            - PUT /users/update - update user data
+            - PUT /users/update/{id} - update user data
             Uses DatabaseCommunication component to data operations.
         endnote
         
@@ -64,16 +64,19 @@ component Backend {
         endnote
         note as Description
             Creates endpoints for:
-            - GET /products - get products
-            - GET /products/all - get all products
-            - GET /products/search - search products
+            - GET /products/{page} - get products
+            - GET /products/all/{page} - get all products
+            - POST /products/search - search products
             - GET /products/details - get products details
             - POST /products/add - add product
             - PUT /products/edit - edit product
             - DELETE /products/delete - remove product
+            
             - POST /categories/add - add category
             - PUT /categories/edit - edit category
             - DELETE /categories/delete - remove category
+            - GET /categories - get categories
+            - GET /categories/all - get categories all
             Uses DatabaseCommunication component to data operations.
         endnote
     }
@@ -117,10 +120,6 @@ component Backend {
         endnote
         note as Description
             Creates endpoints for:
-            - GET /suggestions/user - get user suggestions
-            - POST /suggestions/add - add suggestion
-            - GET /suggestions/get - get all suggestions
-            - PUT /suggestions/reply - reply to suggestion
             - GET /opinions/user - get user opinions
             - GET /opinions/product - get product opinions
             - POST /opinions/add - add opinion
