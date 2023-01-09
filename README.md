@@ -61,12 +61,55 @@ AdminPanel            -(0- BackendCommunication : BackendCommunication
 @startuml
 left to right direction
 
-node Database as database
-node Server as server
-node Browser as browser
+node "Database Server" <<device>> as database {
+    component Database
+}
+node Server <<device>> as server {
+    component Backend {
+        component UserLogic {
+        }
+        component ProductLogic {
+        }
+        component OpinionLogic {
+        }
+        component SuggestionLogic {
+        }
+        
+        component DatabaseCommunication {
+        }
+    }
+}
+node Browser <<device>> as browser {
+    component Frontend {
+        component UserPanel {
+        }
+        
+        component AdminPanel {
+        }
+        
+        component BackendCommunication {
+        }
+    }
+}
 
-database -- server
-server -- browser
+DatabaseCommunication -(0- Database: SQL
+
+UserLogic             -(0- DatabaseCommunication : DatabaseCommunication
+ProductLogic          -(0- DatabaseCommunication : DatabaseCommunication
+OpinionLogic          -(0- DatabaseCommunication : DatabaseCommunication
+SuggestionLogic       -(0- DatabaseCommunication : DatabaseCommunication
+
+BackendCommunication  -(0- UserLogic       : Users
+BackendCommunication  -(0- ProductLogic    : Products
+BackendCommunication  -(0- OpinionLogic    : Opinions
+BackendCommunication  -(0- SuggestionLogic : Logics
+
+ProductLogic          -(0- UserLogic : UserAuth
+OpinionLogic          -(0- UserLogic : UserAuth
+SuggestionLogic       -(0- UserLogic : UserAuth
+
+UserPanel             -(0- BackendCommunication : BackendCommunication
+AdminPanel            -(0- BackendCommunication : BackendCommunication
 
 @enduml 
 ```
