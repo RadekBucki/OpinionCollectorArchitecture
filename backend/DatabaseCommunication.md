@@ -80,7 +80,7 @@ component Backend {
     
     note left of DatabaseCommuniction::getProductsFilterProducts
         Working on like or between 
-        statementfor non null passed 
+        statement for non null passed 
         fields.
     endnote
     

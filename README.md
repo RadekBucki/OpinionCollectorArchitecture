@@ -59,7 +59,6 @@ AdminPanel            -(0- BackendCommunication : BackendCommunication
 ## Deployment diagram
 ```plantuml
 @startuml
-left to right direction
 
 node "Database Server" <<device>> as database {
     component Database

@@ -60,7 +60,6 @@ component Backend {
 
 interface User <<interface>> {
     + getAllUsers() : User[]
-    + getUserByToken(token: String) : User
     + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
     + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
     + login(email: String, password: String): String
@@ -84,7 +83,7 @@ component Backend {
     }
 }
 
-interface Product <<interface>> {
+interface Products <<interface>> {
     + getProductBySku(sku: String) : Product
     + getAllProducts() : Product[]
     + getProducts() : Product[]
@@ -100,7 +99,7 @@ interface Product <<interface>> {
     + getAllCategories(() : Category[]
 }
 
-BackendCommunication ..>   Product
+BackendCommunication ..>   Products
 Products             <|... ProductLogic
 
 @enduml 
@@ -148,6 +147,26 @@ interface Suggestions <<interface>> {
 
 BackendCommunication ..>   Suggestions
 Suggestions          <|... SuggestionLogic
+
+@enduml 
+```
+
+```plantuml
+@startuml
+    
+component Frontend {
+    component AdminPanel {
+    }
+    
+    component UserPage {
+    }
+    
+    component BackendCommunication {
+    }
+
+    AdminPanel -(0- BackendCommunication : BackendCommunication
+    UserPage -(0- BackendCommunication : BackendCommunication
+}
 
 @enduml 
 ```
