@@ -44,7 +44,7 @@ SuggestionLogic       -(0- DatabaseCommunication : DatabaseCommunication
 BackendCommunication  -(0- UserLogic       : Users
 BackendCommunication  -(0- ProductLogic    : Products
 BackendCommunication  -(0- OpinionLogic    : Opinions
-BackendCommunication  -(0- SuggestionLogic : Logics
+BackendCommunication  -(0- SuggestionLogic : Sugestions
 
 ProductLogic          -(0- UserLogic : UserAuth
 OpinionLogic          -(0- UserLogic : UserAuth
