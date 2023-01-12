@@ -1,6 +1,10 @@
-## Sequence diagram for getVisible products list
+## Sequence diagram for Display visible products list
 ```plantuml
 @startuml
+    note right of DB
+    Display visible products list
+    endnote
+    
     actor       User
     participant ":UserPage"              as UserFE
     participant ":BackendCommunication"  as BeComm
