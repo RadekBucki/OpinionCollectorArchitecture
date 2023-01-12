@@ -170,3 +170,53 @@ component Frontend {
 
 @enduml 
 ```
+## Interface shared for Frontend components
+```plantuml
+@startuml
+component Frontend {
+    component AdminPanel {
+    }
+    
+    component UserPage {
+    }
+    
+    component BackendCommunication as BackendCommunicationComponent {
+    }
+    
+    interface BackendCommunication <<interface>>  {
+        + getCategories(): Category[]
+        + getAllCategories(): Category[]
+        + getProductOpinions(sku: String): Opinion[]
+        + getUserOpinions(): Opinion[]
+        + getProducts(page: Integer): Page
+        + getAllProducts(page: Integer): Page
+        + getProductDetails(sku: String): Product
+        + getSearchProduct(searchInput: ProductSearch)
+        + getAllSuggestions(): Suggestion[]
+        + getUserSuggestions(): Suggestion[]
+        + getAllUsers(): User[]
+        + addCategory(categoryName: String, isVisible: Boolean): Category
+        + addOpinion(opinion: Opinion): Opinion
+        + addProduct(product: Product): Product
+        + addSuggestion(description: String, sku: String): Suggestion
+        + userLogin(mail: String, password: String): Token
+        + userRegister(user: User): User
+        + deleteCategory(categoryName: String): Category
+        + deleteCategory(categoryName: String): Category
+        + deleteProduct(sku: String): Product
+        + editCategory(categoryName: String, isVisible: Boolean): Category
+        + editProduct(product: Product): Product
+        + replySuggestion(suggestionReply: SuggestionReply): Suggestion
+        + userEdit(user: User): User
+        + isTokenAvailable(): Boolean
+        + userLogout()
+    }
+}
+
+
+AdminPanel            ..>   BackendCommunication
+UserPage              ..>   BackendCommunication
+BackendCommunication  <|... BackendCommunicationComponent
+
+@enduml 
+```
