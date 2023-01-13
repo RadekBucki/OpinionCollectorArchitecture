@@ -2,16 +2,16 @@
 ## Sequence diagram for Display visible products list
 ```plantuml
 @startuml
-    note right of DB
+    note right of ":Database"
         Display visible products list
     endnote
     
     actor       User
-    participant ":UserPage"              as UserFE
+    participant ":UserPanel"             as UserFE
     participant ":BackendCommunication"  as BeComm
     participant ":ProductLogic"          as Product
     participant ":DatabaseCommunication" as DbComm
-    participant ":Database"              as DB
+    participant ":Database"
     
     User    -> UserFE  : Open products page
     activate UserFE
@@ -21,8 +21,8 @@
     activate Product
     Product -> DbComm  : getVisibleProducts()
     activate DbComm
-    DbComm  -> DB      : SQL SELECT
-    activate DB
+    DbComm  -> ":Database"      : SQL SELECT
+    activate ":Database"
     
     return Data
     return Product[]
@@ -36,16 +36,16 @@
 ```plantuml
 ```plantuml
 @startuml
-    note right of DB
+    note right of ":Database"
         Add opinion
     endnote
     
     actor       "Logged in User" as User
-    participant ":UserPage"              as UserFE
+    participant ":UserPanel"             as UserFE
     participant ":BackendCommunication"  as BeComm
     participant ":OpinionLogic"          as Opinion
     participant ":DatabaseCommunication" as DbComm
-    participant ":Database"              as DB
+    participant ":Database"
     
     User    -> UserFE  : Add product opinion
     activate UserFE
@@ -62,17 +62,17 @@
         activate Opinion
         Opinion -> DbComm  : addProductOpinion(opinion)
         activate DbComm
-        DbComm  -> DB      : SQL INSERT
-        activate DB
+        DbComm  -> ":Database"      : SQL INSERT
+        activate ":Database"
         alt Database error
-            DB --> DbComm      : Exception
+            ":Database" --> DbComm      : Exception
             DbComm --> Opinion : Exception
             Opinion --> BeComm : Exception
             BeComm --> UserFE  : Exception
             UserFE --> User    : Display error
         else Database successresponse
-            DB --> DbComm      : Data
-            deactivate DB
+            ":Database" --> DbComm      : Data
+            deactivate ":Database"
             DbComm --> Opinion : Opinion
             deactivate DbComm
             Opinion --> BeComm : Opinion
