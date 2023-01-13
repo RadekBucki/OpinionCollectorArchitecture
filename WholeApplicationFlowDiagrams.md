@@ -51,15 +51,17 @@
     activate UserFE
     UserFE  -> BeComm  : addOpinion(opinion)
     activate BeComm
+    BeComm  -> Opinion : addOpinion(opinion)
+    activate Opinion
     alt Authorization failed
+        Opinion --> BeComm : Exception
         BeComm --> UserFE : Exception
         UserFE --> User   : Display error
     else Request validation failed
+        Opinion --> BeComm : Exception
         BeComm --> UserFE : Exception
         UserFE --> User   : Display error
     else Request validation positive
-        BeComm  -> Opinion : addOpinion(opinion)
-        activate Opinion
         Opinion -> DbComm  : addProductOpinion(opinion)
         activate DbComm
         DbComm  -> ":Database"      : SQL INSERT
