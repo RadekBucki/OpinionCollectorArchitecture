@@ -13,15 +13,15 @@
     participant ":DatabaseCommunication" as DbComm
     participant ":Database"
     
-    User    -> UserFE  : Open products page
+    User    -> UserFE      : Open products page
     activate UserFE
-    UserFE  -> BeComm  : getProducts(1)
+    UserFE  -> BeComm      : getProducts(1)
     activate BeComm
-    BeComm  -> Product : getProduct(1)
+    BeComm  -> Product     : getProduct(1)
     activate Product
-    Product -> DbComm  : getVisibleProducts()
+    Product -> DbComm      : getVisibleProducts()
     activate DbComm
-    DbComm  -> ":Database"      : SQL SELECT
+    DbComm  -> ":Database" : SQL SELECT
     activate ":Database"
     
     return Data
@@ -47,41 +47,41 @@
     participant ":DatabaseCommunication" as DbComm
     participant ":Database"
     
-    User    -> UserFE  : Add product opinion
+    User    -> UserFE              : Add product opinion
     activate UserFE
-    UserFE  -> BeComm  : addOpinion(opinion)
+    UserFE  -> BeComm              : addOpinion(opinion)
     activate BeComm
-    BeComm  -> Opinion : addOpinion(opinion)
+    BeComm  -> Opinion             : addOpinion(opinion)
     activate Opinion
     alt Authorization failed
-        Opinion --> BeComm : Exception
-        BeComm --> UserFE : Exception
-        UserFE --> User   : Display error
+        Opinion --> BeComm         : Exception
+        BeComm --> UserFE          : Exception
+        UserFE --> User            : Display error
     else Request validation failed
-        Opinion --> BeComm : Exception
-        BeComm --> UserFE : Exception
-        UserFE --> User   : Display error
+        Opinion --> BeComm         : Exception
+        BeComm --> UserFE          : Exception
+        UserFE --> User            : Display error
     else Request validation positive
-        Opinion -> DbComm  : addProductOpinion(opinion)
+        Opinion -> DbComm          : addProductOpinion(opinion)
         activate DbComm
-        DbComm  -> ":Database"      : SQL INSERT
+        DbComm  -> ":Database"     : SQL INSERT
         activate ":Database"
         alt Database error
-            ":Database" --> DbComm      : Exception
-            DbComm --> Opinion : Exception
-            Opinion --> BeComm : Exception
-            BeComm --> UserFE  : Exception
-            UserFE --> User    : Display error
+            ":Database" --> DbComm : Exception
+            DbComm --> Opinion     : Exception
+            Opinion --> BeComm     : Exception
+            BeComm --> UserFE      : Exception
+            UserFE --> User        : Display error
         else Database successresponse
-            ":Database" --> DbComm      : Data
+            ":Database" --> DbComm : Data
             deactivate ":Database"
-            DbComm --> Opinion : Opinion
+            DbComm --> Opinion     : Opinion
             deactivate DbComm
-            Opinion --> BeComm : Opinion
+            Opinion --> BeComm     : Opinion
             deactivate Opinion
-            BeComm --> UserFE  : Opinion
+            BeComm --> UserFE      : Opinion
             deactivate BeComm
-            UserFE --> User    : Display success
+            UserFE --> User        : Display success
             deactivate UserFE
         end
     end
