@@ -116,3 +116,22 @@ end;
 
 @enduml
 ```
+
+## State machine diagram
+```plantuml
+@startuml
+state Unauthorized {
+  [*] --> RequestAccess
+}
+
+state RequestAccess {
+  Authorizing --> Authorized : Success
+  Authorizing --> Unauthorized : Failure
+}
+
+state Authorized {
+  [*] --> TokenExpired
+}
+
+@enduml
+```
