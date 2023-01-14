@@ -88,3 +88,31 @@
     
 @enduml
 ```
+## Activity diagram for add opinion
+```plantuml
+@startuml
+
+start
+:Get Opinion from form filled by user;
+if (Is validated correctly?) then ([yes])
+    :Call to backend with Opinion;
+    if (Is non admin user?) then ([yes])
+        if (Is validation succesful?) then ([yes])
+            :Return success;
+            :Handle and return response;
+            :Display success;
+            stop;
+        else ([no])
+            :Return error;
+        endif;
+    else ([no])
+        :Return error;
+    endif;
+    :Handle and return response;
+else ([no])
+endif;
+:Handle error;
+end;
+
+@enduml
+```
