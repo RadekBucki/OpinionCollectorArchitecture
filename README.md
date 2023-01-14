@@ -113,40 +113,40 @@ package Backend {
 
 package Database
 
-AdminView ...> BackendCommunication : <<import>>
+AdminView ..> BackendCommunication : <<import>>
 
-UserRegistration  ..> PostRequests : <<import>>
-UserLogin         ..> PostRequests : <<import>>
-UserOpinions      ..> GetRequests  : <<import>>
-UserSuggestions   ..> GetRequests  : <<import>>
-ProductListPage   ..> GetRequests  : <<import>>
-ProductDetailPage ..> GetRequests  : <<import>>
-ProductDetailPage ..> PostRequests : <<import>>
+UserRegistration  ...> PostRequests : <<import>>
+UserLogin         ...> PostRequests : <<import>>
+UserOpinions      ...> GetRequests  : <<import>>
+UserSuggestions   ...> GetRequests  : <<import>>
+ProductListPage   ...> GetRequests  : <<import>>
+ProductDetailPage ...> GetRequests  : <<import>>
+ProductDetailPage ...> PostRequests : <<import>>
 
-BackendCommunication ..> User            : <<import>>
-BackendCommunication ..> Category        : <<import>>
-BackendCommunication ..> Product         : <<import>>
-BackendCommunication ..> OpinionLogic    : <<import>>
-BackendCommunication ..> SuggestionLogic : <<import>>
+BackendCommunication ...> User            : <<import>>
+BackendCommunication ...> Category        : <<import>>
+BackendCommunication ...> Product         : <<import>>
+BackendCommunication ...> OpinionLogic    : <<import>>
+BackendCommunication ...> SuggestionLogic : <<import>>
 
-User            ..> Auth : <<import>>
-Category        ..> Auth : <<import>>
-Product         ..> Auth : <<import>>
-OpinionLogic    ..> Auth : <<import>>
-SuggestionLogic ..> Auth : <<import>>
+User            ...> Auth : <<import>>
+Category        ...> Auth : <<import>>
+Product         ...> Auth : <<import>>
+OpinionLogic    ...> Auth : <<import>>
+SuggestionLogic ...> Auth : <<import>>
 
-User            ..> DatabaseCommunication : <<import>>
-Auth            ..> DatabaseCommunication : <<import>>
-Category        ..> DatabaseCommunication : <<import>>
-Product         ..> DatabaseCommunication : <<import>>
-OpinionLogic    ..> DatabaseCommunication : <<import>>
-SuggestionLogic ..> DatabaseCommunication : <<import>>
+User            ...> DatabaseCommunication : <<import>>
+Auth            ...> DatabaseCommunication : <<import>>
+Category        ...> DatabaseCommunication : <<import>>
+Product         ...> DatabaseCommunication : <<import>>
+OpinionLogic    ...> DatabaseCommunication : <<import>>
+SuggestionLogic ...> DatabaseCommunication : <<import>>
 
-DbCategory   ..> Database : <<import>>
-DbOpinion    ..> Database : <<import>>
-DbProduct    ..> Database : <<import>>
-DbSuggestion ..> Database : <<import>>
-DbUser       ..> Database : <<import>>
+DbCategory   ...> Database : <<import>>
+DbOpinion    ...> Database : <<import>>
+DbProduct    ...> Database : <<import>>
+DbSuggestion ...> Database : <<import>>
+DbUser       ...> Database : <<import>>
 
 @enduml 
 ```
