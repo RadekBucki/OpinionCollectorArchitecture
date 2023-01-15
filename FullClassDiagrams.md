@@ -829,7 +829,7 @@ component Frontend {
             - opinions: Opinion[]
             - user: User
         }
-        UserPanel *-- User
+        UserPanel *- User
         UserPanel o-- Suggestion
         UserPanel o-- Opinion
         
