@@ -304,3 +304,30 @@ Start
 Stop
 @enduml
 ```
+
+## Structural diagram for Product parts
+```plantuml
+card Product {
+    card sku
+    card name
+    card description
+    card opinionAvg
+    card pictureUrl
+    card visible
+    card user
+    
+    card category
+    card opinion
+    card suggestion
+}
+sku "1" -- "1" name
+sku "1" -- "1" description
+sku "1" -- "1" opinionAvg
+sku "1" -- "1" pictureUrl
+sku "1" -- "1" visible
+sku "1" -- "1" user
+
+sku "1" -- "0..*" category
+sku "1" -- "0..*" opinion
+sku "1" -- "0..*" suggestion
+```
