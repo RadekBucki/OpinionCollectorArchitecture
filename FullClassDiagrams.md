@@ -2,40 +2,42 @@
 ## Relation between data classes
 ```plantuml
 component Backend {
-    class Suggestion {
+    component DatabaseCommuniction {
+        class Suggestion {
+        }
+        class User {
+        }
+        class Opinion {
+        }
+        class Product {
+        }
+        class Category {
+        }
+        class Suggestion {
+        }
+        class Review {
+        }
+        Product    "1" o-- "0..*" Opinion    : has
+        Product    "1" o-- "0..*" Suggestion : has
+        Product    "1" *-- "0..*" User       : has autor of
+        Product    "1" --- "0..*" Category   : has
+        Suggestion "1" o-- "0..*" Review    : has
+        User       "1" o-- "0..*" Opinion    : gives
+        User       "1" --- "0..*" Suggestion : reviews
+        User       "1" o-- "0..*" Suggestion : suggest
+        
+        UserDatabaseCommuniation        ..> User
+        ProductDatabaseCommuniation     ..> Product
+        SuggestionDatabaseCommuniation  ..> Suggestion
+        OpinionDatabaseCommuniation     ..> Opinion
+        CategoryDatabaseCommuniation    ..> Category
+        
+        DatabaseCommunictionFacadeImplementation ..> User
+        DatabaseCommunictionFacadeImplementation ..> Product
+        DatabaseCommunictionFacadeImplementation ..> Suggestion
+        DatabaseCommunictionFacadeImplementation ..> Opinion
+        DatabaseCommunictionFacadeImplementation ..> Category
     }
-    class User {
-    }
-    class Opinion {
-    }
-    class Product {
-    }
-    class Category {
-    }
-    class Suggestion {
-    }
-    class Review {
-    }
-    Product    "1" o-- "0..*" Opinion    : has
-    Product    "1" o-- "0..*" Suggestion : has
-    Product    "1" *-- "0..*" User       : has autor of
-    Product    "1" --- "0..*" Category   : has
-    Suggestion "1" o-- "0..*" Review    : has
-    User       "1" o-- "0..*" Opinion    : gives
-    User       "1" --- "0..*" Suggestion : reviews
-    User       "1" o-- "0..*" Suggestion : suggest
-    
-    UserDatabaseCommuniation        ..> User
-    ProductDatabaseCommuniation     ..> Product
-    SuggestionDatabaseCommuniation  ..> Suggestion
-    OpinionDatabaseCommuniation     ..> Opinion
-    CategoryDatabaseCommuniation    ..> Category
-    
-    DatabaseCommunictionFacadeImplementation ..> User
-    DatabaseCommunictionFacadeImplementation ..> Product
-    DatabaseCommunictionFacadeImplementation ..> Suggestion
-    DatabaseCommunictionFacadeImplementation ..> Opinion
-    DatabaseCommunictionFacadeImplementation ..> Category
 }
 ```
 
@@ -231,8 +233,8 @@ component Backend {
             + getUserByToken(token: String) : User
         }
     }
-    ProductController -(0- UserFacadeImpl  : UserAuth
-    CategoryController -(0- UserFacadeImpl : UserAuth
+    ProductController  -(0-- UserFacadeImpl  : UserAuth
+    CategoryController -(0-- UserFacadeImpl : UserAuth
 }
 ```
 # Suggestion
@@ -266,7 +268,7 @@ component Backend {
             + getUserByToken(token: String) : User
         }
     }
-    SuggestionController -(0- UserFacadeImpl : UserAuth
+    SuggestionController -(0-- UserFacadeImpl : UserAuth
     SuggestionService    ..> Suggestion
 }
 ```
@@ -299,7 +301,7 @@ component Backend {
             + getUserByToken(token: String) : User
         }
     }
-    OpinionController -(0- UserFacadeImpl : UserAuth
+    OpinionController -(0-- UserFacadeImpl : UserAuth
     OpinionService    ..> Opinion
 }
 ```
