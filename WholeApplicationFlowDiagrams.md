@@ -331,3 +331,34 @@ sku "1" -- "0..*" category
 sku "1" -- "0..*" opinion
 sku "1" -- "0..*" suggestion
 ```
+
+## Timing diagram for get product list
+```plantuml
+@startuml
+robust "Backend" as BE
+robust "Frontend" as FE
+
+@0
+BE is Waiting
+FE is Idle
+
+@16
+BE is Idle
+FE is Processing
+
+@2630
+FE -> BE : Get product list
+BE is Processing
+FE is Waiting
+
+@2640
+BE is Waiting
+FE is Processing
+
+@5430
+BE is Waiting
+FE is Processing
+
+@enduml
+
+```
