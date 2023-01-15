@@ -126,3 +126,60 @@ OpinionDatabaseCommuniation     -(0- Database : SQL
 CategoryDatabaseCommuniation    -(0- Database : SQL
 @enduml 
 ```
+# Product
+```plantuml
+component Backend {
+    component Product {
+        class ProductController {
+            + getProductDetails(sku: String) : Product
+            + getAllProducts(page: Integer) : Product[]
+            + getProducts(page: Integer) : Product[]
+            + searchProducts(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + removeProduct(sku: String)
+        }
+        class CategoryController {
+            +addCategory(categoryName: String, visible: Boolean) : Category
+            + editCategory(categoryName: String, visible: Boolean) : Category
+            + removeCategory(categoryName: String)
+            + getCategories() : Category[]
+            + getAllCategories(() : Category[]
+        }
+        circle ProductFacade
+        class ProductFacadeImpl {
+            + getProductBySku(sku: String) : Product
+            + getAllProducts() : Product[]
+            + getProducts() : Product[]
+            + getProductsFiltered(categoryName: String, searchPhrase: String, opinionAvgMin: Integer, opinionAvgMax: Integer) : Product[]
+            + addProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + editProduct(sku: String, name: String, pictureUrl: String, description: String, categoryNames: String[], visible: Boolean) : Product
+            + removeProduct(sku: String)
+            
+            + addCategory(categoryName: String, visible: Boolean) : Category
+            + editCategory(categoryName: String, visible: Boolean) : Category
+            + removeCategory(categoryName: String)
+            + getCategories() : Category[]
+            + getAllCategories(() : Category[]
+        }
+        ProductFacade -- ProductFacadeImpl
+        CategoryController o-- ProductFacadeImpl
+        ProductController  o-- ProductFacadeImpl
+        
+        class Mapper {
+            +map (object: Object) : Object
+        }
+        CategoryController ..> Mapper
+        ProductController  ..> Mapper
+    }
+    component DatabaseCommunication {
+        class DatabaseCommunictionFacadeImplelementation
+        class Product
+        class Category
+    }
+    ProductFacadeImpl -(0- DatabaseCommunictionFacadeImplelementation : DatabaseCommunication
+    ProductFacadeImpl ..> Product
+    ProductFacadeImpl ..> Category
+    
+}
+```
