@@ -349,13 +349,14 @@ sku "1" -- "0..*" suggestion
 @startuml
 robust "Backend" as BE
 robust "Frontend" as FE
+scale 100 as 30 pixels
 
 @0
 BE is Waiting
 FE is Idle
 
 @16
-BE is Idle
+BE is Waiting
 FE is Processing
 
 @2630
@@ -363,11 +364,11 @@ FE -> BE : Get product list
 BE is Processing
 FE is Waiting
 
-@2640
+@3380
 BE is Waiting
 FE is Processing
 
-@5430
+@3900
 BE is Waiting
 FE is Processing
 
