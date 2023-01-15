@@ -44,8 +44,8 @@ component Backend {
 @startuml
 top to bottom direction
 component Backend {
+    circle DatabaseCommunictionFacade
     component DatabaseCommunication {
-        circle DatabaseCommunictionFacade
         class DatabaseCommunictionFacadeImplementation {
             + getAllUsers() : User[]
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
@@ -128,9 +128,9 @@ CategoryDatabaseCommuniation    -(0- Database : SQL
 ```
 # User
 ```plantuml
+circle Users
 component Backend {
     component UserLogic {
-        circle Users
         class UserController {
             + getAllUsers() : User[]
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
@@ -170,9 +170,9 @@ component Backend {
 ```
 # Product
 ```plantuml
+circle Products
 component Backend {
     component ProductLogic {
-        circle Products
         class ProductController {
             + getProductDetails(sku: String) : Product
             + getAllProducts(page: Integer) : Product[]
@@ -237,9 +237,9 @@ component Backend {
 ```
 # Suggestion
 ```plantuml
+circle Suggestions
 component Backend {
     component SuggestionLogic {
-        circle Suggestions
         class SuggestionController {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
@@ -272,9 +272,9 @@ component Backend {
 ```
 # Opinion
 ```plantuml
+circle Opinions
 component Backend {
     component OpinionLogic {
-        circle Opinions
         class OpinionController {
             + getProductOpinions(sku: String) : Opinion[]
             + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
