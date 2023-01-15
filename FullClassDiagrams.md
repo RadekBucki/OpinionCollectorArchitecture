@@ -142,8 +142,8 @@ component Backend {
             + updateCategory(categoryName: String, visible: Boolean): Category
             + removeCategory(categoryName: String)
         }
-        DatabaseCommunictionFacadeImplementation o-- UserDatabaseCommuniation
-        DatabaseCommunictionFacadeImplementation o-- ProductDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o--- UserDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o--- ProductDatabaseCommuniation
         DatabaseCommunictionFacadeImplementation o-- SuggestionDatabaseCommuniation 
         DatabaseCommunictionFacadeImplementation o-- OpinionDatabaseCommuniation
         DatabaseCommunictionFacadeImplementation o-- CategoryDatabaseCommuniation
@@ -337,7 +337,7 @@ component Backend {
 }
 ```
 # BackendCommunication
-## Get
+## GET
 ```plantuml
 component Frontend {
     circle BackendComunication
@@ -471,7 +471,7 @@ GetRequest -(0- OpinionController    : Opinions
 GetRequest -(0- SuggestionController : Suggestions
 GetRequest -(0- UserController       : Users
 ```
-## Post
+## POST
 ```plantuml
 component Frontend {
     circle BackendComunication
@@ -628,7 +628,7 @@ PostRequest -(0- OpinionController    : Opinions
 PostRequest -(0- SuggestionController : Suggestions
 PostRequest -(0- UserController       : Users
 ```
-## Put
+## PUT
 ```plantuml
 component Frontend {
     circle BackendComunication
@@ -729,12 +729,12 @@ component Backend {
     }
 }
         
-PutRequest -(0- CategoryController   : Categories
-PutRequest -(0- ProductController    : Products
-PutRequest -(0- SuggestionController : Suggestions
-PutRequest -(0- UserController       : Users
+PutRequest --(0-- CategoryController   : Categories
+PutRequest --(0-- ProductController    : Products
+PutRequest --(0-- SuggestionController : Suggestions
+PutRequest --(0-- UserController       : Users
 ```
-## Delete
+## DELETE
 ```plantuml
 component Frontend {
     circle BackendComunication
@@ -777,8 +777,8 @@ component Backend {
     }
 }
         
-DeleteRequest -(0- CategoryController   : Categories
-DeleteRequest -(0- ProductController    : Products
+DeleteRequest -(0-- CategoryController   : Categories
+DeleteRequest -(0-- ProductController    : Products
 ```
 ## MethodRequest
 ```plantuml
@@ -921,7 +921,7 @@ component Frontend {
     ProductListPage   -(0- GetRequest : BackendCommunication
     ProductDetailPage -(0- GetRequest : BackendCommunication
     
-    OpinionModal -(0- PostRequest    : BackendCommunication
+    OpinionModal    -(0- PostRequest    : BackendCommunication
     SuggestionModal -(0- PostRequest : BackendCommunication
 }
 ```
