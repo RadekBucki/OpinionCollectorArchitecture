@@ -173,7 +173,7 @@ node Server <<device>> as server {
         }
     }
 }
-node Browser <<device>> as browser {
+node Browser as browser {
     component Frontend {
         component UserPanel {
         }
