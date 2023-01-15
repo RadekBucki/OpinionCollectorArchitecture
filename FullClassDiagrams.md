@@ -126,6 +126,46 @@ OpinionDatabaseCommuniation     -(0- Database : SQL
 CategoryDatabaseCommuniation    -(0- Database : SQL
 @enduml 
 ```
+# User
+```plantuml
+component Backend {
+    component User {
+        class UserController {
+            + getAllUsers() : User[]
+            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
+            + login(email: String, password: String): String
+            + update(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+        }
+        circle UserFacade
+        circle UserAuth
+        class UserFacadeImpl {
+            + getAllUsers() : User[]
+            + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+            + login(email: String, password: String): String
+            + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
+            + getUserByToken(token: String) : User
+        }
+        UserFacade -- UserFacadeImpl
+        UserAuth   -- UserFacadeImpl
+        
+        UserController "1" o-- "1" UserFacadeImpl
+        
+        class Mapper {
+            +map (object: Object) : Object
+        }
+        UserController ..> Mapper
+    }
+    
+    component DatabaseCommunication {
+        class DatabaseCommunictionFacadeImplelementation
+        class User
+    }
+    UserFacadeImpl -(0- DatabaseCommunictionFacadeImplelementation : DatabaseCommunication
+    UserFacadeImpl ..> User
+    
+}
+```
 # Product
 ```plantuml
 component Backend {
@@ -140,7 +180,7 @@ component Backend {
             + removeProduct(sku: String)
         }
         class CategoryController {
-            +addCategory(categoryName: String, visible: Boolean) : Category
+            + addCategory(categoryName: String, visible: Boolean) : Category
             + editCategory(categoryName: String, visible: Boolean) : Category
             + removeCategory(categoryName: String)
             + getCategories() : Category[]
@@ -163,8 +203,8 @@ component Backend {
             + getAllCategories(() : Category[]
         }
         ProductFacade -- ProductFacadeImpl
-        CategoryController o-- ProductFacadeImpl
-        ProductController  o-- ProductFacadeImpl
+        CategoryController "1" o-- "1" ProductFacadeImpl
+        ProductController  "1" o-- "1" ProductFacadeImpl
         
         class Mapper {
             +map (object: Object) : Object
@@ -178,8 +218,14 @@ component Backend {
         class Category
     }
     ProductFacadeImpl -(0- DatabaseCommunictionFacadeImplelementation : DatabaseCommunication
-    ProductFacadeImpl ..> Product
-    ProductFacadeImpl ..> Category
+    ProductFacadeImpl ..>  Product
+    ProductFacadeImpl ..>  Category
     
+    component User {
+        class UserFacadeImpl {
+            + getUserByToken(token: String) : User
+        }
+    }
+    ProductFacadeImpl -(0- UserFacadeImpl : UserAuth
 }
 ```
