@@ -6,7 +6,7 @@
         Display visible products list
     endnote
     
-    actor       User
+    actor       "Logged in user" as User
     participant ":UserPanel"             as UserFE
     participant ":BackendCommunication"  as BeComm
     participant ":ProductLogic"          as Product
@@ -39,7 +39,7 @@
         Display product details
     endnote
     
-    actor       User
+    actor       "Logged in user" as User
     participant ":UserPanel"             as UserFE
     participant ":BackendCommunication"  as BeComm
     participant ":ProductLogic"          as Product
@@ -80,7 +80,7 @@
         Add opinion
     endnote
     
-    actor       "Logged in User" as User
+    actor       "Logged in user" as User
     participant ":UserPanel"             as UserFE
     participant ":BackendCommunication"  as BeComm
     participant ":OpinionLogic"          as Opinion
@@ -101,7 +101,7 @@
         Opinion --> BeComm         : Exception
         BeComm --> UserFE          : Exception
         UserFE --> User            : Display error
-    else Request validation positive
+    else Request validation positive and Authorization successful
         Opinion -> DbComm          : addProductOpinion(opinion)
         activate DbComm
         DbComm  -> ":Database"     : SQL INSERT
