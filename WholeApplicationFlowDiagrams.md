@@ -32,6 +32,46 @@
     
 @enduml
 ```
+## Sequence diagram for Display product details
+```plantuml
+@startuml
+    note right of ":Database"
+        Display product details
+    endnote
+    
+    actor       User
+    participant ":UserPanel"             as UserFE
+    participant ":BackendCommunication"  as BeComm
+    participant ":ProductLogic"          as Product
+    participant ":DatabaseCommunication" as DbComm
+    participant ":Database"
+    
+    User    -> UserFE      : Open product details page
+    activate UserFE
+    UserFE  -> BeComm      : getProductDetails(sku)
+    activate BeComm
+    BeComm  -> Product     : getProductsDetails(sku)
+    activate Product
+    Product -> DbComm      : getProductBySku(sku)
+    activate DbComm
+    DbComm  -> ":Database" : SQL SELECT
+    activate ":Database"
+    alt No product with given sku
+        ":Database" -> DbComm : Empty list
+        DbComm  -> Product    : Exception
+        Product -> BeComm     : Exception
+        BeComm  -> UserFE     : Exception
+        UserFE  -> User       : Display error
+    else Product found
+        return Data
+        return Product
+        return Product
+        return Product
+        return Product details
+    end
+    
+@enduml
+```
 ## Sequence diagram for Add opinion
 ```plantuml
 ```plantuml
@@ -86,6 +126,26 @@
         end
     end
     
+@enduml
+```
+```plantuml
+@startuml
+Start
+
+:action1
+{{
+Participant alpha
+Participant beta
+
+Mainframe sd
+alpha -> beta : message
+alpha <-- beta : response
+}}
+;
+
+:action2;
+
+:action3;
 @enduml
 ```
 ## Activity diagram for add opinion
