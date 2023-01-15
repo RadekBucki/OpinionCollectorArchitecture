@@ -130,6 +130,7 @@ CategoryDatabaseCommuniation    -(0- Database : SQL
 ```plantuml
 component Backend {
     component UserLogic {
+        circle Users
         class UserController {
             + getAllUsers() : User[]
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
@@ -148,6 +149,7 @@ component Backend {
         }
         UserFacade -- UserFacadeImpl
         UserAuth   -- UserFacadeImpl
+        Users -- UserController
         
         UserController "1" o-- "1" UserFacadeImpl
         
@@ -170,6 +172,7 @@ component Backend {
 ```plantuml
 component Backend {
     component ProductLogic {
+        circle Products
         class ProductController {
             + getProductDetails(sku: String) : Product
             + getAllProducts(page: Integer) : Product[]
@@ -205,6 +208,8 @@ component Backend {
         ProductFacade -- ProductFacadeImpl
         CategoryController "1" o-- "1" ProductFacadeImpl
         ProductController  "1" o-- "1" ProductFacadeImpl
+        Products -- ProductController
+        Products -- CategoryController
         
         class Mapper {
             +map (object: Object) : Object
@@ -234,6 +239,7 @@ component Backend {
 ```plantuml
 component Backend {
     component SuggestionLogic {
+        circle Suggestions
         class SuggestionController {
             + getUserSugestions() : Sugestion[]
             + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
@@ -247,6 +253,7 @@ component Backend {
             + replySuggestion(reviewerId: Long, suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
         }
         SuggestionController o-- SuggestionService
+        Suggestions -- SuggestionController
     }
     component DatabaseCommunication {
         class DatabaseCommunictionFacadeImplementation
@@ -261,5 +268,38 @@ component Backend {
     }
     SuggestionController -(0- UserFacadeImpl : UserAuth
     SuggestionService    ..> Suggestion
+}
+```
+# Opinion
+```plantuml
+component Backend {
+    component OpinionLogic {
+        circle Opinions
+        class OpinionController {
+            + getProductOpinions(sku: String) : Opinion[]
+            + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + getUserOpinions() : Opinion[]
+        }
+        class OpinionService {
+            + getProductOpinions(sku: String) : Opinion[]
+            + addProductOpinion(authorId: Integer,opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
+            + getUserOpinions() : Opinion[]
+        }
+        OpinionController o-- OpinionService
+        Opinions -- OpinionController
+    }
+    component DatabaseCommunication {
+        class DatabaseCommunictionFacadeImplementation
+        class Opinion
+    }
+    OpinionService -(0- DatabaseCommunictionFacadeImplementation : UserAuth
+    
+    component UserLogic {
+        class UserFacadeImpl {
+            + getUserByToken(token: String) : User
+        }
+    }
+    OpinionController -(0- UserFacadeImpl : UserAuth
+    OpinionService    ..> Opinion
 }
 ```
