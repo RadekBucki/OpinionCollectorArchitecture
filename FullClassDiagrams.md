@@ -307,6 +307,7 @@ component Backend {
 ## Get
 ```plantuml
 component Frontend {
+    circle BackendComunication
     component BackendCommunication {
         enum Get {
             CATEGORIES
@@ -412,6 +413,8 @@ component Frontend {
         GetRequest ..> ProductGet
         GetRequest ..> Suggestion
         GetRequest ..> User
+    }
+    BackendComunication - BackendCommunication
 }
 component Backend {
     component UserLogic {
@@ -438,6 +441,7 @@ GetRequest -(0- UserController       : Users
 ## Post
 ```plantuml
 component Frontend {
+    circle BackendComunication
     component BackendCommunication {
         enum Post {
             CATEGORIES_ADD
@@ -567,6 +571,7 @@ component Frontend {
         PostRequest ..> UserEdit
         PostRequest ..> UserLogin     
     }
+    BackendComunication - BackendCommunication
 }
 component Backend {
     component UserLogic {
@@ -593,6 +598,7 @@ PostRequest -(0- UserController       : Users
 ## Put
 ```plantuml
 component Frontend {
+    circle BackendComunication
     component BackendCommunication {        
         enum Put {
             CATEGORIES_EDIT
@@ -675,6 +681,7 @@ component Frontend {
         PutRequest ..> Suggestion
         PutRequest ..> User   
     }
+    BackendComunication - BackendCommunication
 }
 component Backend {
     component UserLogic {
@@ -697,6 +704,7 @@ PutRequest -(0- UserController       : Users
 ## Delete
 ```plantuml
 component Frontend {
+    circle BackendComunication
     component BackendCommunication {
         
         enum Delete {
@@ -727,6 +735,7 @@ component Frontend {
         DeleteRequest ..> Category
         DeleteRequest ..> ProductGet
     }
+    BackendComunication - BackendCommunication
 }
 component Backend {
     component ProductLogic {
@@ -741,6 +750,7 @@ DeleteRequest -(0- ProductController    : Products
 ## MethodRequest
 ```plantuml
 component Frontend {
+    circle BackendComunication
     component BackendCommunication {
         class User {
             + email: String
@@ -758,5 +768,6 @@ component Frontend {
         }
         MethodRequest ..> User      
     }
+    BackendComunication - BackendCommunication
 }
 ```
