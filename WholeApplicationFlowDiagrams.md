@@ -93,36 +93,40 @@
     activate BeComm
     BeComm  -> Opinion             : addOpinion(opinion)
     activate Opinion
-    alt Authorization failed
-        Opinion --> BeComm         : Exception
-        BeComm --> UserFE          : Exception
+    alt Form validation failed
         UserFE --> User            : Display error
-    else Request validation failed
-        Opinion --> BeComm         : Exception
-        BeComm --> UserFE          : Exception
-        UserFE --> User            : Display error
-    else Request validation positive and Authorization successful
-        Opinion -> DbComm          : addProductOpinion(opinion)
-        activate DbComm
-        DbComm  -> ":Database"     : SQL INSERT
-        activate ":Database"
-        alt Database error
-            ":Database" --> DbComm : Exception
-            DbComm --> Opinion     : Exception
-            Opinion --> BeComm     : Exception
-            BeComm --> UserFE      : Exception
-            UserFE --> User        : Display error
-        else Database successresponse
-            ":Database" --> DbComm : Data
-            deactivate ":Database"
-            DbComm --> Opinion     : Opinion
-            deactivate DbComm
-            Opinion --> BeComm     : Opinion
-            deactivate Opinion
-            BeComm --> UserFE      : Opinion
-            deactivate BeComm
-            UserFE --> User        : Display success
-            deactivate UserFE
+    else Form validation successful
+        alt Authorization failed
+            Opinion --> BeComm         : Exception
+            BeComm --> UserFE          : Exception
+            UserFE --> User            : Display error
+        else Request validation failed
+            Opinion --> BeComm         : Exception
+            BeComm --> UserFE          : Exception
+            UserFE --> User            : Display error
+        else Request validation positive and Authorization successful
+            Opinion -> DbComm          : addProductOpinion(opinion)
+            activate DbComm
+            DbComm  -> ":Database"     : SQL INSERT
+            activate ":Database"
+            alt Database error
+                ":Database" --> DbComm : Exception
+                DbComm --> Opinion     : Exception
+                Opinion --> BeComm     : Exception
+                BeComm --> UserFE      : Exception
+                UserFE --> User        : Display error
+            else Database successresponse
+                ":Database" --> DbComm : Data
+                deactivate ":Database"
+                DbComm --> Opinion     : Opinion
+                deactivate DbComm
+                Opinion --> BeComm     : Opinion
+                deactivate Opinion
+                BeComm --> UserFE      : Opinion
+                deactivate BeComm
+                UserFE --> User        : Display success
+                deactivate UserFE
+            end
         end
     end
     
@@ -134,7 +138,7 @@
 
 start
 :Get Opinion from form filled by user;
-if (Is validated correctly?) then ([yes])
+if (Is form validation successful?) then ([yes])
     :Call to backend with Opinion;
     if (Is non admin user?) then ([yes])
         if (Is validation succesful?) then ([yes])
@@ -148,10 +152,10 @@ if (Is validated correctly?) then ([yes])
     else ([no])
         :Return error;
     endif;
-    :Handle and return response;
 else ([no])
+    :Return error;
 endif;
-:Handle error;
+:Handle and return response;
 end;
 
 @enduml
