@@ -141,7 +141,7 @@ interface Suggestions <<interface>> {
     + getUserSugestions() : Sugestion[]
     + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
     + getAllSuggestions() : Suggestion[]
-    + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+    + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String) : Suggestion
 }
 
 BackendCommunication ..>   Suggestions

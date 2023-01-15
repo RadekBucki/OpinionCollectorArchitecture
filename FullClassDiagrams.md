@@ -31,11 +31,11 @@ component Backend {
     OpinionDatabaseCommuniation     ..> Opinion
     CategoryDatabaseCommuniation    ..> Category
     
-    DatabaseCommunictionFacadeImplelementation ..> User
-    DatabaseCommunictionFacadeImplelementation ..> Product
-    DatabaseCommunictionFacadeImplelementation ..> Suggestion
-    DatabaseCommunictionFacadeImplelementation ..> Opinion
-    DatabaseCommunictionFacadeImplelementation ..> Category
+    DatabaseCommunictionFacadeImplementation ..> User
+    DatabaseCommunictionFacadeImplementation ..> Product
+    DatabaseCommunictionFacadeImplementation ..> Suggestion
+    DatabaseCommunictionFacadeImplementation ..> Opinion
+    DatabaseCommunictionFacadeImplementation ..> Category
 }
 ```
 
@@ -46,7 +46,7 @@ top to bottom direction
 component Backend {
     component DatabaseCommunication {
         circle DatabaseCommunictionFacade
-        class DatabaseCommunictionFacadeImplelementation {
+        class DatabaseCommunictionFacadeImplementation {
             + getAllUsers() : User[]
             + createUser(firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
             + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
@@ -75,7 +75,7 @@ component Backend {
             + replySuggestion(suggestiontId:Integer, suggestionReviewerId: Integer, suggestionStatus: String, suggestionReply: String)
         }
         
-        DatabaseCommunictionFacade -- DatabaseCommunictionFacadeImplelementation
+        DatabaseCommunictionFacade -- DatabaseCommunictionFacadeImplementation
         
         class UserDatabaseCommuniation {
             + getAllUsers() : User[]
@@ -109,11 +109,11 @@ component Backend {
             + updateCategory(categoryName: String, visible: Boolean): Category
             + removeCategory(categoryName: String)
         }
-        DatabaseCommunictionFacadeImplelementation o-- UserDatabaseCommuniation
-        DatabaseCommunictionFacadeImplelementation o-- ProductDatabaseCommuniation
-        DatabaseCommunictionFacadeImplelementation o-- SuggestionDatabaseCommuniation 
-        DatabaseCommunictionFacadeImplelementation o-- OpinionDatabaseCommuniation
-        DatabaseCommunictionFacadeImplelementation o-- CategoryDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o-- UserDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o-- ProductDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o-- SuggestionDatabaseCommuniation 
+        DatabaseCommunictionFacadeImplementation o-- OpinionDatabaseCommuniation
+        DatabaseCommunictionFacadeImplementation o-- CategoryDatabaseCommuniation
     }
 }
 
@@ -129,7 +129,7 @@ CategoryDatabaseCommuniation    -(0- Database : SQL
 # User
 ```plantuml
 component Backend {
-    component User {
+    component UserLogic {
         class UserController {
             + getAllUsers() : User[]
             + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
@@ -158,10 +158,10 @@ component Backend {
     }
     
     component DatabaseCommunication {
-        class DatabaseCommunictionFacadeImplelementation
+        class DatabaseCommunictionFacadeImplementation
         class User
     }
-    UserFacadeImpl -(0- DatabaseCommunictionFacadeImplelementation : DatabaseCommunication
+    UserFacadeImpl -(0- DatabaseCommunictionFacadeImplementation : DatabaseCommunication
     UserFacadeImpl ..> User
     
 }
@@ -169,7 +169,7 @@ component Backend {
 # Product
 ```plantuml
 component Backend {
-    component Product {
+    component ProductLogic {
         class ProductController {
             + getProductDetails(sku: String) : Product
             + getAllProducts(page: Integer) : Product[]
@@ -213,19 +213,53 @@ component Backend {
         ProductController  ..> Mapper
     }
     component DatabaseCommunication {
-        class DatabaseCommunictionFacadeImplelementation
+        class DatabaseCommunictionFacadeImplementation
         class Product
         class Category
     }
-    ProductFacadeImpl -(0- DatabaseCommunictionFacadeImplelementation : DatabaseCommunication
+    ProductFacadeImpl -(0- DatabaseCommunictionFacadeImplementation : DatabaseCommunication
     ProductFacadeImpl ..>  Product
     ProductFacadeImpl ..>  Category
     
-    component User {
+    component UserLogic {
         class UserFacadeImpl {
             + getUserByToken(token: String) : User
         }
     }
-    ProductFacadeImpl -(0- UserFacadeImpl : UserAuth
+    ProductController -(0- UserFacadeImpl  : UserAuth
+    CategoryController -(0- UserFacadeImpl : UserAuth
+}
+```
+# Suggestion
+```plantuml
+component Backend {
+    component SuggestionLogic {
+        class SuggestionController {
+            + getUserSugestions() : Sugestion[]
+            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
+            + getAllSuggestions() : Suggestion[]
+            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+        }
+        class SuggestionService {
+            + getUserSugestions(userId: Long) : Sugestion[]
+            + addSuggestion(userId: Long, sku: String, suggestionDescription: String) : Suggestion
+            + getAllSuggestions() : Suggestion[]
+            + replySuggestion(reviewerId: Long, suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+        }
+        SuggestionController o-- SuggestionService
+    }
+    component DatabaseCommunication {
+        class DatabaseCommunictionFacadeImplementation
+        class Suggestion
+    }
+    SuggestionService -(0- DatabaseCommunictionFacadeImplementation : UserAuth
+    
+    component UserLogic {
+        class UserFacadeImpl {
+            + getUserByToken(token: String) : User
+        }
+    }
+    SuggestionController -(0- UserFacadeImpl : UserAuth
+    SuggestionService    ..> Suggestion
 }
 ```
