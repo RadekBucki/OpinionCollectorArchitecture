@@ -6,16 +6,47 @@ component Backend {
         class Suggestion {
         }
         class User {
+            - userId: Integer
+            - firstName: String
+            - email: String
+            - passwordHash: String
+            - profilePictureUrl: String
+            - admin: Boolean
         }
         class Opinion {
+            - opinionId: Integer
+            - userId: Integer
+            - opinionValue: Integer
+            - opinionDescription: String
+            - opinionPitureUrl: String
+            - advantages: String[]
+            - disadvantages: String[]
         }
         class Product {
+            - productId: Integer
+            - authorId: Integer
+            - sku: String
+            - pictureUrl: String
+            - description: String
+            - categoryName: String
         }
         class Category {
+            - categoryId: Integer
+            - categoryName: String
+            - visible: Boolean
         }
         class Suggestion {
+            - suggestionId: Integer
+            - productId: Integer
+            - reviewerId: Integer
+            - userId: Integer
+            - description: String
         }
         class Review {
+            - reviewerId: Integer
+            - suggestionId: Integer
+            - reply: string
+            - status: String
         }
         Product    "1" o-- "0..*" Opinion    : has
         Product    "1" o-- "0..*" Suggestion : has
