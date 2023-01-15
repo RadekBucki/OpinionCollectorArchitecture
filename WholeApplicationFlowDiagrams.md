@@ -57,11 +57,11 @@
     DbComm  -> ":Database" : SQL SELECT
     activate ":Database"
     alt No product with given sku
-        ":Database" -> DbComm : Empty list
-        DbComm  -> Product    : Exception
-        Product -> BeComm     : Exception
-        BeComm  -> UserFE     : Exception
-        UserFE  -> User       : Display error
+        ":Database" --> DbComm : Empty list
+        DbComm  --> Product    : Exception
+        Product --> BeComm     : Exception
+        BeComm  --> UserFE     : Exception
+        UserFE  --> User       : Display error
     else Product found
         return Data
         return Product
@@ -164,17 +164,19 @@ end;
 ## State machine diagram
 ```plantuml
 @startuml
+[*] -> Unauthorized
+
 state Unauthorized {
-  [*] --> RequestAccess
+  Unauthorized --> Authorizing : Request
 }
 
-state RequestAccess {
-  Authorizing --> Authorized : Success
-  Authorizing --> Unauthorized : Failure
+state Authorizing {
+  Authorizing --> Authorized : Request authorized
+  Authorizing --> Unauthorized : Request failed
 }
 
 state Authorized {
-  [*] --> TokenExpired
+  Authorized --> Unauthorized : Token expired
 }
 
 @enduml
@@ -220,91 +222,97 @@ Start
     end
 }}
 ;
-
-:Display product details
-{{
-    actor       User
-    participant ":UserPanel"             as UserFE
-    participant ":BackendCommunication"  as BeComm
-    participant ":ProductLogic"          as Product
-    participant ":DatabaseCommunication" as DbComm
-    participant ":Database"
-    
-    User    -> UserFE      : Open product details page
-    activate UserFE
-    UserFE  -> BeComm      : getProductDetails(sku)
-    activate BeComm
-    BeComm  -> Product     : getProductsDetails(sku)
-    activate Product
-    Product -> DbComm      : getProductBySku(sku)
-    activate DbComm
-    DbComm  -> ":Database" : SQL SELECT
-    activate ":Database"
-    alt No product with given sku
-        ":Database" -> DbComm : Empty list
-        DbComm  -> Product    : Exception
-        Product -> BeComm     : Exception
-        BeComm  -> UserFE     : Exception
-        UserFE  -> User       : Display error
-    else Product found
-        return Data
-        return Product
-        return Product
-        return Product
-        return Product details
-    end
-}}
-;
-
-:Add opinion
-{{
-    actor       "Logged in User" as User
-    participant ":UserPanel"             as UserFE
-    participant ":BackendCommunication"  as BeComm
-    participant ":OpinionLogic"          as Opinion
-    participant ":DatabaseCommunication" as DbComm
-    participant ":Database"
-    
-    User    -> UserFE              : Add product opinion
-    activate UserFE
-    UserFE  -> BeComm              : addOpinion(opinion)
-    activate BeComm
-    BeComm  -> Opinion             : addOpinion(opinion)
-    activate Opinion
-    alt Authorization failed
-        Opinion --> BeComm         : Exception
-        BeComm --> UserFE          : Exception
-        UserFE --> User            : Display error
-    else Request validation failed
-        Opinion --> BeComm         : Exception
-        BeComm --> UserFE          : Exception
-        UserFE --> User            : Display error
-    else Request validation positive
-        Opinion -> DbComm          : addProductOpinion(opinion)
+if () then ([display product details])
+    :Display product details
+    {{
+        actor       User
+        participant ":UserPanel"             as UserFE
+        participant ":BackendCommunication"  as BeComm
+        participant ":ProductLogic"          as Product
+        participant ":DatabaseCommunication" as DbComm
+        participant ":Database"
+        
+        User    -> UserFE      : Open product details page
+        activate UserFE
+        UserFE  -> BeComm      : getProductDetails(sku)
+        activate BeComm
+        BeComm  -> Product     : getProductsDetails(sku)
+        activate Product
+        Product -> DbComm      : getProductBySku(sku)
         activate DbComm
-        DbComm  -> ":Database"     : SQL INSERT
+        DbComm  -> ":Database" : SQL SELECT
         activate ":Database"
-        alt Database error
-            ":Database" --> DbComm : Exception
-            DbComm --> Opinion     : Exception
-            Opinion --> BeComm     : Exception
-            BeComm --> UserFE      : Exception
-            UserFE --> User        : Display error
-        else Database successresponse
-            ":Database" --> DbComm : Data
-            deactivate ":Database"
-            DbComm --> Opinion     : Opinion
-            deactivate DbComm
-            Opinion --> BeComm     : Opinion
-            deactivate Opinion
-            BeComm --> UserFE      : Opinion
-            deactivate BeComm
-            UserFE --> User        : Display success
-            deactivate UserFE
+        alt No product with given sku
+            ":Database" --> DbComm : Empty list
+            DbComm  --> Product    : Exception
+            Product --> BeComm     : Exception
+            BeComm  --> UserFE     : Exception
+            UserFE  --> User       : Display error
+        else Product found
+            return Data
+            return Product
+            return Product
+            return Product
+            return Product details
         end
-    end
-}}
-;
+    }}
+    ;
+    if () then ([add opinion])
+        :Add opinion
+        {{
+            actor       "Logged in User" as User
+            participant ":UserPanel"             as UserFE
+            participant ":BackendCommunication"  as BeComm
+            participant ":OpinionLogic"          as Opinion
+            participant ":DatabaseCommunication" as DbComm
+            participant ":Database"
+            
+            User    -> UserFE              : Add product opinion
+            activate UserFE
+            UserFE  -> BeComm              : addOpinion(opinion)
+            activate BeComm
+            BeComm  -> Opinion             : addOpinion(opinion)
+            activate Opinion
+            alt Authorization failed
+                Opinion --> BeComm         : Exception
+                BeComm --> UserFE          : Exception
+                UserFE --> User            : Display error
+            else Request validation failed
+                Opinion --> BeComm         : Exception
+                BeComm --> UserFE          : Exception
+                UserFE --> User            : Display error
+            else Request validation positive
+                Opinion -> DbComm          : addProductOpinion(opinion)
+                activate DbComm
+                DbComm  -> ":Database"     : SQL INSERT
+                activate ":Database"
+                alt Database error
+                    ":Database" --> DbComm : Exception
+                    DbComm --> Opinion     : Exception
+                    Opinion --> BeComm     : Exception
+                    BeComm --> UserFE      : Exception
+                    UserFE --> User        : Display error
+                else Database successresponse
+                    ":Database" --> DbComm : Data
+                    deactivate ":Database"
+                    DbComm --> Opinion     : Opinion
+                    deactivate DbComm
+                    Opinion --> BeComm     : Opinion
+                    deactivate Opinion
+                    BeComm --> UserFE      : Opinion
+                    deactivate BeComm
+                    UserFE --> User        : Display success
+                    deactivate UserFE
+                end
+            end
+        }}
+        ;
+    else ([back to products list])
+        stop;
+    endif;
+else ([not displaing detail of any product])
+    stop;
+    endif;
 Stop
 @enduml
 ```
