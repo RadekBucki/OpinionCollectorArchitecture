@@ -91,7 +91,7 @@ package Frontend {
 package Backend {
     package UserLogic {
         package User
-        package Auth
+        package Security
     }
     package ProductLogic {
         package Category
@@ -129,14 +129,14 @@ BackendCommunication ...> Product         : <<import>>
 BackendCommunication ...> OpinionLogic    : <<import>>
 BackendCommunication ...> SuggestionLogic : <<import>>
 
-User            ...> Auth : <<import>>
-Category        ...> Auth : <<import>>
-Product         ...> Auth : <<import>>
-OpinionLogic    ...> Auth : <<import>>
-SuggestionLogic ...> Auth : <<import>>
+User            ...> Security : <<import>>
+Category        ...> Security : <<import>>
+Product         ...> Security : <<import>>
+OpinionLogic    ...> Security : <<import>>
+SuggestionLogic ...> Security : <<import>>
 
 User            ...> DatabaseCommunication : <<import>>
-Auth            ...> DatabaseCommunication : <<import>>
+Security            ...> DatabaseCommunication : <<import>>
 Category        ...> DatabaseCommunication : <<import>>
 Product         ...> DatabaseCommunication : <<import>>
 OpinionLogic    ...> DatabaseCommunication : <<import>>
