@@ -60,8 +60,7 @@ component Backend {
 
 interface User <<interface>> {
     + getAllUsers() : User[]
-    + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
-    + registerAdmin(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String): User
+    + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
     + login(email: String, password: String): String
     + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
 }
@@ -142,7 +141,7 @@ interface Suggestions <<interface>> {
     + getUserSugestions() : Sugestion[]
     + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
     + getAllSuggestions() : Suggestion[]
-    + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
+    + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String) : Suggestion
 }
 
 BackendCommunication ..>   Suggestions
