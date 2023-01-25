@@ -1,5 +1,5 @@
-# Main functionalities diagrams
-## Sequence diagram for Display visible products list
+# Sequence diagram for Display visible products list
+<!--
 ```plantuml
 @startuml
     note right of ":Database"
@@ -32,7 +32,10 @@
     
 @enduml
 ```
-## Sequence diagram for Display product details
+-->
+![](media/sequence1.png)
+# Sequence diagram for Display product details
+<!--
 ```plantuml
 @startuml
     note right of ":Database"
@@ -57,11 +60,11 @@
     DbComm  -> ":Database" : SQL SELECT
     activate ":Database"
     alt No product with given sku
-        ":Database" --> DbComm : Empty list
-        DbComm  --> Product    : Exception
-        Product --> BeComm     : Exception
-        BeComm  --> UserFE     : Exception
-        UserFE  --> User       : Display error
+        ":Database" -/-> DbComm : Empty list
+        DbComm  -/-> Product    : Exception
+        Product -/-> BeComm     : Exception
+        BeComm  -/-> UserFE     : Exception
+        UserFE  -/-> User       : Display error
     else Product found
         return Data
         return Product
@@ -72,7 +75,10 @@
     
 @enduml
 ```
-## Sequence diagram for Add opinion
+-->
+![](media/sequence2.png)
+# Sequence diagram for Add opinion
+<!--
 ```plantuml
 ```plantuml
 @startuml
@@ -94,37 +100,37 @@
     BeComm  -> Opinion             : addOpinion(opinion)
     activate Opinion
     alt Form validation failed
-        UserFE --> User            : Display error
+        UserFE -/-> User            : Display error
     else Form validation successful
         alt Authorization failed
-            Opinion --> BeComm         : Exception
-            BeComm --> UserFE          : Exception
-            UserFE --> User            : Display error
+            Opinion -/-> BeComm         : Exception
+            BeComm -/-> UserFE          : Exception
+            UserFE -/-> User            : Display error
         else Request validation failed
-            Opinion --> BeComm         : Exception
-            BeComm --> UserFE          : Exception
-            UserFE --> User            : Display error
+            Opinion -/-> BeComm         : Exception
+            BeComm -/-> UserFE          : Exception
+            UserFE -/-> User            : Display error
         else Request validation positive and Authorization successful
             Opinion -> DbComm          : addProductOpinion(opinion)
             activate DbComm
             DbComm  -> ":Database"     : SQL INSERT
             activate ":Database"
             alt Database error
-                ":Database" --> DbComm : Exception
-                DbComm --> Opinion     : Exception
-                Opinion --> BeComm     : Exception
-                BeComm --> UserFE      : Exception
-                UserFE --> User        : Display error
+                ":Database" -/-> DbComm : Exception
+                DbComm -/-> Opinion     : Exception
+                Opinion -/-> BeComm     : Exception
+                BeComm -/-> UserFE      : Exception
+                UserFE -/-> User        : Display error
             else Database successresponse
-                ":Database" --> DbComm : Data
+                ":Database" -/-> DbComm : Data
                 deactivate ":Database"
-                DbComm --> Opinion     : Opinion
+                DbComm -/-> Opinion     : Opinion
                 deactivate DbComm
-                Opinion --> BeComm     : Opinion
+                Opinion -/-> BeComm     : Opinion
                 deactivate Opinion
-                BeComm --> UserFE      : Opinion
+                BeComm -/-> UserFE      : Opinion
                 deactivate BeComm
-                UserFE --> User        : Display success
+                UserFE -/-> User        : Display success
                 deactivate UserFE
             end
         end
@@ -132,7 +138,10 @@
     
 @enduml
 ```
-## Activity diagram for add opinion
+-->
+![](media/sequence3.png)
+# Activity diagram for add opinion
+<!--
 ```plantuml
 @startuml
 
@@ -160,30 +169,35 @@ end;
 
 @enduml
 ```
+-->
+![](media/activity.png)
 
-## State machine diagram
+# State machine diagram
+<!--
 ```plantuml
 @startuml
 [*] -> Unauthorized
 
 state Unauthorized {
-  Unauthorized --> Authorizing : Request
+  Unauthorized -/-> Authorizing : Request
 }
 
 state Authorizing {
-  Authorizing --> Authorized : Request authorized
-  Authorizing --> Unauthorized : Request failed
+  Authorizing -/-> Authorized : Request authorized
+  Authorizing -/-> Unauthorized : Request failed
 }
 
 state Authorized {
-  Authorized --> Unauthorized : Token expired
+  Authorized -/-> Unauthorized : Token expired
 }
 
 @enduml
 ```
+-->
+![](media/stateMachine.png)
+# Interaction overview diagram
 
-## Interaction overview diagram
-
+<!---
 ```plantuml
 @startuml
 Start
@@ -243,11 +257,11 @@ if () then ([display product details])
         DbComm  -> ":Database" : SQL SELECT
         activate ":Database"
         alt No product with given sku
-            ":Database" --> DbComm : Empty list
-            DbComm  --> Product    : Exception
-            Product --> BeComm     : Exception
-            BeComm  --> UserFE     : Exception
-            UserFE  --> User       : Display error
+            ":Database" -/-> DbComm : Empty list
+            DbComm  -/-> Product    : Exception
+            Product -/-> BeComm     : Exception
+            BeComm  -/-> UserFE     : Exception
+            UserFE  -/-> User       : Display error
         else Product found
             return Data
             return Product
@@ -274,34 +288,34 @@ if () then ([display product details])
             BeComm  -> Opinion             : addOpinion(opinion)
             activate Opinion
             alt Authorization failed
-                Opinion --> BeComm         : Exception
-                BeComm --> UserFE          : Exception
-                UserFE --> User            : Display error
+                Opinion -/-> BeComm         : Exception
+                BeComm -/-> UserFE          : Exception
+                UserFE -/-> User            : Display error
             else Request validation failed
-                Opinion --> BeComm         : Exception
-                BeComm --> UserFE          : Exception
-                UserFE --> User            : Display error
+                Opinion -/-> BeComm         : Exception
+                BeComm -/-> UserFE          : Exception
+                UserFE -/-> User            : Display error
             else Request validation positive
                 Opinion -> DbComm          : addProductOpinion(opinion)
                 activate DbComm
                 DbComm  -> ":Database"     : SQL INSERT
                 activate ":Database"
                 alt Database error
-                    ":Database" --> DbComm : Exception
-                    DbComm --> Opinion     : Exception
-                    Opinion --> BeComm     : Exception
-                    BeComm --> UserFE      : Exception
-                    UserFE --> User        : Display error
+                    ":Database" -/-> DbComm : Exception
+                    DbComm -/-> Opinion     : Exception
+                    Opinion -/-> BeComm     : Exception
+                    BeComm -/-> UserFE      : Exception
+                    UserFE -/-> User        : Display error
                 else Database successresponse
-                    ":Database" --> DbComm : Data
+                    ":Database" -/-> DbComm : Data
                     deactivate ":Database"
-                    DbComm --> Opinion     : Opinion
+                    DbComm -/-> Opinion     : Opinion
                     deactivate DbComm
-                    Opinion --> BeComm     : Opinion
+                    Opinion -/-> BeComm     : Opinion
                     deactivate Opinion
-                    BeComm --> UserFE      : Opinion
+                    BeComm -/-> UserFE      : Opinion
                     deactivate BeComm
-                    UserFE --> User        : Display success
+                    UserFE -/-> User        : Display success
                     deactivate UserFE
                 end
             end
@@ -316,8 +330,11 @@ else ([not displaing detail of any product])
 Stop
 @enduml
 ```
+--->
+![](media/interactionOverview.png)
 
-## Structural diagram for Product parts
+# Structural diagram for Product parts
+<!--
 ```plantuml
 card Product {
     card sku
@@ -343,8 +360,11 @@ sku "1" -- "0..*" category
 sku "1" -- "0..*" opinion
 sku "1" -- "0..*" suggestion
 ```
+-->
+![](media/structural.png)
 
-## Timing diagram for get product list
+# Timing diagram for get product list
+<!--
 ```plantuml
 @startuml
 robust "Backend" as BE
@@ -373,5 +393,6 @@ BE is Waiting
 FE is Processing
 
 @enduml
-
 ```
+-->
+![](media/timing.png)
