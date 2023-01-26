@@ -1,5 +1,5 @@
 # Frontend
-
+<!--
 ```plantuml
 @startuml
     
@@ -36,3 +36,9 @@ AdminPanel           -(0-  BackendCommunication : BackendCommunication
 
 @enduml 
 ```
+-->
+![](media/components.png)
+## Table of Contents:
+1. [Backend Communication](BackendCommuncation/README.md)
+2. [UserPage](UserPage)
+3. [AdminPanel](AdminPanel)
