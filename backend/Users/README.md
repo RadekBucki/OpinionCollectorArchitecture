@@ -39,15 +39,15 @@ component Backend {
     }
 }
 
-interface User <<interface>> {
+interface Users <<interface>> {
     + getAllUsers() : User[]
     + register(firstName: String, lastName: String, email: String, password: String, profilePictureUrl: String, isAdmin: Boolean): User
     + login(email: String, password: String): String
     + updateUser(userId: Integer, firstName: String, lastName: String, email: String, passwordHash: String, profilePictureUrl: String, isAdmin: Boolean) : User
 }
 
-BackendCommunication ..>   User
-User                 <|... UserLogic
+BackendCommunication ..>   Users
+Users                 <|... UserLogic
 
 @enduml 
 ```
