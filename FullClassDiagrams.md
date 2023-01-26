@@ -1,38 +1,3 @@
-# Suggestion
-```plantuml
-circle Suggestions
-component Backend {
-    component SuggestionLogic {
-        class SuggestionController {
-            + getUserSugestions() : Sugestion[]
-            + addSuggestion(sku: String, suggestionDescription: String) : Suggestion
-            + getAllSuggestions() : Suggestion[]
-            + replySuggestion(suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
-        }
-        class SuggestionService {
-            + getUserSugestions(userId: Long) : Sugestion[]
-            + addSuggestion(userId: Long, sku: String, suggestionDescription: String) : Suggestion
-            + getAllSuggestions() : Suggestion[]
-            + replySuggestion(reviewerId: Long, suggestiontId:Integer, suggestionStatus: String, suggestionReply: String)
-        }
-        SuggestionController o-- SuggestionService
-        Suggestions -- SuggestionController
-    }
-    component DatabaseCommunication {
-        class DatabaseCommunictionFacadeImplementation
-        class Suggestion
-    }
-    SuggestionService -(0- DatabaseCommunictionFacadeImplementation : UserAuth
-    
-    component UserLogic {
-        class UserFacadeImpl {
-            + getUserByToken(token: String) : User
-        }
-    }
-    SuggestionController -(0-- UserFacadeImpl : UserAuth
-    SuggestionService    ..> Suggestion
-}
-```
 # Opinion
 ```plantuml
 circle Opinions
