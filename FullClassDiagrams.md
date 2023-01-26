@@ -1,36 +1,3 @@
-# Opinion
-```plantuml
-circle Opinions
-component Backend {
-    component OpinionLogic {
-        class OpinionController {
-            + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions() : Opinion[]
-        }
-        class OpinionService {
-            + getProductOpinions(sku: String) : Opinion[]
-            + addProductOpinion(authorId: Integer,opinionValue: Integer, sku: String, opinionDescription: String, opinionPicture: String, advatages: String[], disadvantages: String[]) : Opinion
-            + getUserOpinions() : Opinion[]
-        }
-        OpinionController o-- OpinionService
-        Opinions -- OpinionController
-    }
-    component DatabaseCommunication {
-        class DatabaseCommunictionFacadeImplementation
-        class Opinion
-    }
-    OpinionService -(0- DatabaseCommunictionFacadeImplementation : UserAuth
-    
-    component UserLogic {
-        class UserFacadeImpl {
-            + getUserByToken(token: String) : User
-        }
-    }
-    OpinionController -(0-- UserFacadeImpl : UserAuth
-    OpinionService    ..> Opinion
-}
-```
 # BackendCommunication
 ## GET
 ```plantuml

@@ -77,7 +77,7 @@ component Backend {
         class DatabaseCommunictionFacadeImplementation
         class Suggestion
     }
-    SuggestionService -(0- DatabaseCommunictionFacadeImplementation : UserAuth
+    SuggestionService -(0- DatabaseCommunictionFacadeImplementation : DatabaseCommunication
     
     component UserLogic {
         class UserFacadeImpl {
