@@ -1,56 +1,6 @@
-# Backend logic layer
 
-```plantuml
-@startuml
-component Backend {
-    component UserLogic {
-    }
-    component ProductLogic {
-    }
-    component OpinionLogic {
-    }
-    component SuggestionLogic {
-    }
-    
-    component DatabaseCommunication {
-    }
-}
-
-component Database {
-}
-
-DatabaseCommunication -(0-  Database : SQL
-
-UserLogic             -(0-  DatabaseCommunication : DatabaseCommuniction
-ProductLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
-OpinionLogic          -(0-  DatabaseCommunication : DatabaseCommuniction
-SuggestionLogic       -(0-  DatabaseCommunication : DatabaseCommuniction
-@enduml 
-```
 
 ## User
-```plantuml
-@startuml
-component Backend {
-    component UserLogic {
-        note as Authors
-            Projectants: 
-             - Michał Andrzejczak
-             - Mateusz Krasiński
-        endnote
-        note as Description
-            Creates endpoints for:
-            - GET /users - get all users data
-            - POST /users/register - register new user or admin user
-            - GET /users/login - get user data and token
-            - PUT /users/update/{id} - update user data
-            Uses DatabaseCommunication component to data operations.
-        endnote
-        
-    }
-}
-@enduml 
-```
 
 ## Product
 ```plantuml
