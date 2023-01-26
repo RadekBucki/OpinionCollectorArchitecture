@@ -1,5 +1,40 @@
-# Admin Frontend
-## Admin Frontend class diagram
+# Frontend - Admin Panel
+## Description
+<!--
+```plantuml
+@startuml
+    
+component Frontend {
+    component AdminPanel {
+        note as AuthorsAP
+            Projectants: 
+             - Rafał Komorowski
+             - Kamil Presler
+        endnote
+        note as Description
+            Component responsible for:
+            - Main admin panel page
+            - Display list with edit button of:
+              - Users
+              - Product
+              - Suggestions
+              - Categories
+            - Edit:
+              - Users
+              - Product
+              - Categories
+            - Reply suggestions
+        endnote
+    }
+}
+
+@enduml 
+```
+-->
+![](media/description.png)
+## Class diagrams
+### Admin Frontend class diagram
+<!--
 ```plantuml
 component Frontend {
     component AdminPanel {
@@ -107,7 +142,10 @@ component Frontend {
     }
 }
 ```
-## Connections with BackendCommunication - DELETE
+-->
+![](media/class.png)
+### Connections with BackendCommunication - GET
+<!--
 ```plantuml
 component Frontend {
     component AdminPanel {
@@ -132,7 +170,10 @@ component Frontend {
     ProductPanel --(0-- GetRequest    : BackendCommunication
 }
 ```
-# Connections with BackendCommunication - POST
+-->
+![](media/get.png)
+### Connections with BackendCommunication - POST
+<!--
 ```plantuml
 component Frontend {
     component AdminPanel {
@@ -157,7 +198,10 @@ component Frontend {
     ProductPanel --(0-- PostRequest   : BackendCommunication
 }
 ```
-# Connections with BackendCommunication - PUT
+-->
+![](media/post.png)
+### Connections with BackendCommunication - PUT
+<!--
 ```plantuml
 component Frontend {
     component AdminPanel {
@@ -182,7 +226,10 @@ component Frontend {
     ProductPanel --(0-- PutRequest    : BackendCommunication
 }
 ```
-# Connections with BackendCommunication - DELETE
+-->
+![](media/put.png)
+### Connections with BackendCommunication - DELETE
+<!--
 ```plantuml
 component Frontend {
     component AdminPanel {
@@ -200,3 +247,5 @@ component Frontend {
     ProductPanel --(0-- DeleteRequest : BackendCommunication
 }
 ```
+-->
+![](media/delete.png)
