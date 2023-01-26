@@ -1,39 +1,3 @@
-
-
-## User
-
-## Product
-```plantuml
-@startuml
-component Backend {    
-    component ProductLogic {
-        note as Authors
-            Projectants: 
-             - Filip Grzelak
-             - Damian Biskupski
-        endnote
-        note as Description
-            Creates endpoints for:
-            - GET /products/{page} - get products
-            - GET /products/all/{page} - get all products
-            - POST /products/search - search products
-            - GET /products/details - get products details
-            - POST /products/add - add product
-            - PUT /products/edit - edit product
-            - DELETE /products/delete - remove product
-            
-            - POST /categories/add - add category
-            - PUT /categories/edit - edit category
-            - DELETE /categories/delete - remove category
-            - GET /categories - get categories
-            - GET /categories/all - get categories all
-            Uses DatabaseCommunication component to data operations.
-        endnote
-    }
-}
-@enduml 
-```
-
 ## Suggestion
 
 ```plantuml
